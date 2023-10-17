@@ -1,11 +1,13 @@
-function FavoriteEmpty(): JSX.Element {
+import { Link } from 'react-router-dom';
+
+function NotFoundPage(): JSX.Element {
   return (
-    <div className="page page--favorites-empty">
+    <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a className="header__logo-link header__logo-link--active">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -26,7 +28,7 @@ function FavoriteEmpty(): JSX.Element {
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">0</span>
+                    <span className="header__favorite-count">3</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -40,32 +42,10 @@ function FavoriteEmpty(): JSX.Element {
         </div>
       </header>
 
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container">
-          <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Favorites (empty)</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">Nothing yet saved.</b>
-              <p className="favorites__status-description">
-                Save properties to narrow down search or plan your future trips.
-              </p>
-            </div>
-          </section>
-        </div>
-      </main>
-      <footer className="footer">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          />
-        </a>
-      </footer>
+      <h1>404. Page not found</h1>
+      <Link to="/">Вернуться на главную</Link>
     </div>
   );
 }
 
-export default FavoriteEmpty;
+export { NotFoundPage };

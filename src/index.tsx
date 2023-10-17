@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
+import { App } from './components';
 import { FAVORITE_QUANTITY, OFFER_COUNT } from './const';
 
 const root = ReactDOM.createRoot(
