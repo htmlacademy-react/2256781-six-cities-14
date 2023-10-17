@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
 import { Logo } from '../../components';
 import { Nav } from '../../components';
+import { Helmet } from 'react-helmet-async';
 
 function FavoritePage(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Favorite page</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -23,9 +28,9 @@ function FavoritePage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <Link className="locations__item-link" to="/">
                       <span>Amsterdam</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="favorites__places">
@@ -34,7 +39,7 @@ function FavoritePage(): JSX.Element {
                       <span>Premium</span>
                     </div>
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <Link to="/">
                         <img
                           className="place-card__image"
                           src="img/apartment-small-03.jpg"
@@ -42,7 +47,7 @@ function FavoritePage(): JSX.Element {
                           height="110"
                           alt="Place image"
                         />
-                      </a>
+                      </Link>
                     </div>
                     <div className="favorites__card-info place-card__info">
                       <div className="place-card__price-wrapper">
@@ -73,7 +78,7 @@ function FavoritePage(): JSX.Element {
                         </div>
                       </div>
                       <h2 className="place-card__name">
-                        <a href="#">Nice, cozy, warm big bed apartment</a>
+                        <Link to="/">Nice, cozy, warm big bed apartment</Link>
                       </h2>
                       <p className="place-card__type">Apartment</p>
                     </div>
@@ -81,7 +86,7 @@ function FavoritePage(): JSX.Element {
 
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <Link to="/">
                         <img
                           className="place-card__image"
                           src="img/room-small.jpg"
@@ -89,7 +94,7 @@ function FavoritePage(): JSX.Element {
                           height="110"
                           alt="Place image"
                         />
-                      </a>
+                      </Link>
                     </div>
                     <div className="favorites__card-info place-card__info">
                       <div className="place-card__price-wrapper">
@@ -120,7 +125,7 @@ function FavoritePage(): JSX.Element {
                         </div>
                       </div>
                       <h2 className="place-card__name">
-                        <a href="#">Wood and stone place</a>
+                        <Link to="/">Wood and stone place</Link>
                       </h2>
                       <p className="place-card__type">Room</p>
                     </div>
@@ -131,15 +136,15 @@ function FavoritePage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <Link className="locations__item-link" to="/">
                       <span>Cologne</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="favorites__places">
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <Link to="/">
                         <img
                           className="place-card__image"
                           src="img/apartment-small-04.jpg"
@@ -147,7 +152,7 @@ function FavoritePage(): JSX.Element {
                           height="110"
                           alt="Place image"
                         />
-                      </a>
+                      </Link>
                     </div>
                     <div className="favorites__card-info place-card__info">
                       <div className="place-card__price-wrapper">
@@ -178,7 +183,7 @@ function FavoritePage(): JSX.Element {
                         </div>
                       </div>
                       <h2 className="place-card__name">
-                        <a href="#">White castle</a>
+                        <Link to="/">White castle</Link>
                       </h2>
                       <p className="place-card__type">Apartment</p>
                     </div>

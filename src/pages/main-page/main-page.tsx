@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Card } from '../../components';
 import { Logo } from '../../components';
 import { Nav } from '../../components';
@@ -22,6 +23,9 @@ const offers = getCards();
 function MainPage({ quantity, offerCount }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Main page</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
