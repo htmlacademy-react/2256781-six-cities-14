@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { quantityFavorite } from './const';
+import { FAVORITE_QUANTITY, OFFER_COUNT } from './const';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App quantity={quantityFavorite} />
+    <App quantity={FAVORITE_QUANTITY} offerCount={OFFER_COUNT} />
   </React.StrictMode>
 );
