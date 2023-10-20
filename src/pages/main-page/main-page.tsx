@@ -1,12 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Card } from '../../components';
-import { Logo } from '../../components';
-import { Nav } from '../../components';
-import { CARD_COUNT } from '../../const';
+import { Card, Header } from '../../components';
+import { AppRoute, AuthorizationStatus, CARD_COUNT } from '../../const';
+import { Link } from 'react-router-dom';
 
-type MainProps = {
-  quantity: number;
+type TMainProps = {
   offerCount: number;
+  authorization: AuthorizationStatus;
 };
 
 function getCards() {
@@ -20,22 +19,14 @@ function getCards() {
 
 const offers = getCards();
 
-function MainPage({ quantity, offerCount }: MainProps): JSX.Element {
+function MainPage({ offerCount, authorization }: TMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>Main page</title>
+        <title>6 Cities - Main page</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <Nav quantity={quantity} />
-          </div>
-        </div>
-      </header>
+
+      <Header authorization={authorization} />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -43,34 +34,52 @@ function MainPage({ quantity, offerCount }: MainProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link
+                  className="locations__item-link tabs__item"
+                  to={AppRoute.Main}
+                >
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link
+                  className="locations__item-link tabs__item"
+                  to={AppRoute.Main}
+                >
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link
+                  className="locations__item-link tabs__item"
+                  to={AppRoute.Main}
+                >
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link
+                  className="locations__item-link tabs__item tabs__item--active"
+                  to={AppRoute.Main}
+                >
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link
+                  className="locations__item-link tabs__item"
+                  to={AppRoute.Main}
+                >
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link
+                  className="locations__item-link tabs__item"
+                  to={AppRoute.Main}
+                >
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>

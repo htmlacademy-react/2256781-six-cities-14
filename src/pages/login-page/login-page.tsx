@@ -1,21 +1,20 @@
 import { Helmet } from 'react-helmet-async';
-import { Logo } from '../../components';
+import { Header } from '../../components';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { Link } from 'react-router-dom';
 
-function LoginPage(): JSX.Element {
+type TLoginProps = {
+  authorization: AuthorizationStatus;
+};
+
+function LoginPage({ authorization }: TLoginProps): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>Login page</title>
+        <title>6 Cities - Login page</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-          </div>
-        </div>
-      </header>
+
+      <Header authorization={authorization} />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -52,9 +51,9 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to={AppRoute.Main}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

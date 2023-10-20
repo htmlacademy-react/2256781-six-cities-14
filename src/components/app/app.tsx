@@ -1,6 +1,6 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { PrivateRoute } from '../../components';
+import { ProtectedRoute } from '../../components';
 import {
   MainPage,
   NotFoundPage,
@@ -8,36 +8,51 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
-import { HelmetProvider } from 'react-helmet-async';
 
-type AppProps = {
-  quantity: number;
+type TAppProps = {
   offerCount: number;
+  authorization: AuthorizationStatus;
 };
 
-function App({ quantity, offerCount }: AppProps): JSX.Element {
+function App({ offerCount, authorization }: TAppProps): JSX.Element {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainPage quantity={quantity} offerCount={offerCount} />}
-          />
-          <Route path={AppRoute.Login} element={<LoginPage />} />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritePage />
-              </PrivateRoute>
-            }
-          />
-          <Route path={AppRoute.Offer} element={<OfferPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={
+          <MainPage offerCount={offerCount} authorization={authorization} />
+        }
+      />
+      <Route
+        path={AppRoute.Login}
+        element={
+          <ProtectedRoute
+            authorization={authorization}
+            restrictedFor={AuthorizationStatus.Auth}
+            redirectTo={AppRoute.Main}
+          >
+            <LoginPage authorization={authorization} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <ProtectedRoute
+            authorization={authorization}
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Login}
+          >
+            <FavoritePage authorization={authorization} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Offer}
+        element={<OfferPage authorization={authorization} />}
+      />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 
