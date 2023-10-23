@@ -8,13 +8,8 @@ type TMainProps = {
   authorization: AuthorizationStatus;
 };
 
-function getCards() {
-  const cards: JSX.Element[] = [];
-  for (let i = 1; i <= CARD_COUNT; i++) {
-    cards.push(<Card />);
-  }
-
-  return cards;
+function getCards(): JSX.Element[] {
+  return Array.from({ length: 6 }, (_, index) => <Card key={index} />);
 }
 
 const offers = getCards();
