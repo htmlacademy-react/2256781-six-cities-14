@@ -9,7 +9,7 @@ type TMainProps = {
 };
 
 function getCards(): JSX.Element[] {
-  return Array.from({ length: 6 }, (_, index) => <Card key={index} />);
+  return Array.from({ length: CARD_COUNT }, (_, index) => <Card key={index} />);
 }
 
 const offers = getCards();
