@@ -16,9 +16,7 @@ function Header({
           <div className="header__left">
             <Logo />
           </div>
-          {authorization === AuthorizationStatus.Auth ? (
-            <Nav authorization={authorization} />
-          ) : null}
+          <Nav authorization={authorization} />
         </div>
       </div>
     </header>
