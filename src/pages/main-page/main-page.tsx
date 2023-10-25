@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Card, Header } from '../../components';
+import { Header, OfferList } from '../../components';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link } from 'react-router-dom';
 import { TOffer } from '../../types';
@@ -9,13 +9,8 @@ type TMainProps = {
   authorization: AuthorizationStatus;
 };
 
-function getCards(offers: TOffer[]): JSX.Element[] {
-  return offers.map((offer) => <Card key={offer.id} offer={offer} />);
-}
-
 function MainPage({ offers, authorization }: TMainProps): JSX.Element {
   const offerCount = offers.length;
-  const cards = getCards(offers);
 
   return (
     <div className="page page--gray page--main">
@@ -114,9 +109,7 @@ function MainPage({ offers, authorization }: TMainProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {cards}
-              </div>
+              {<OfferList offers={offers} />}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

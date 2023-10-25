@@ -4,17 +4,22 @@ import { AppRoute, MAX_RATING } from '../../const';
 
 type TCardProps = {
   offer: TOffer;
+  mouseOverHandler: (offer: TOffer | null) => void;
 };
 
 function getRating(rating: number): string {
   return `${(rating * 100) / MAX_RATING}%`;
 }
 
-function Card({ offer }: TCardProps): JSX.Element {
+function Card({ offer, mouseOverHandler }: TCardProps): JSX.Element {
   const { isPremium, previewImage, price, rating, title, type } = offer;
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseOver={() => mouseOverHandler(offer)}
+      onMouseLeave={() => mouseOverHandler(null)}
+    >
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>

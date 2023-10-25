@@ -6,3 +6,4 @@ export * from './protected-route/protected-route';
 export * from './tab/tab';
 export * from './header/header';
 export * from './footer/footer';
+export * from './offer-list/offer-list';
