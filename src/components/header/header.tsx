@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from '../../const';
 import { Logo } from '../logo/logo';
-import { Nav } from '../nav/nav';
+import { Navigation } from '../navigation/navigation';
 
 type THeaderProps = {
   authorization: AuthorizationStatus;
@@ -16,7 +16,7 @@ function Header({
           <div className="header__left">
             <Logo />
           </div>
-          <Nav authorization={authorization} />
+          <Navigation authorization={authorization} />
         </div>
       </div>
     </header>

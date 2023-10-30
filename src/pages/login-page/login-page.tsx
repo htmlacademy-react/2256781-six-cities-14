@@ -3,11 +3,11 @@ import { Header } from '../../components';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Link } from 'react-router-dom';
 
-type TLoginProps = {
+type TLoginPageProps = {
   authorization: AuthorizationStatus;
 };
 
-function LoginPage({ authorization }: TLoginProps): JSX.Element {
+function LoginPage({ authorization }: TLoginPageProps): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>

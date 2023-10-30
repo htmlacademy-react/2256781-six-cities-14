@@ -1,38 +1,56 @@
 import { Link } from 'react-router-dom';
-import { TOffer } from '../../types';
-import { AppRoute, MAX_RATING } from '../../const';
+import { TCustomizationCard, TOffer } from '../../types';
+import { AppRoute, MAX_RATING, TYPE_CARD, MarkType } from '../../const';
+import { Premium } from '..';
 
 type TCardProps = {
   offer: TOffer;
-  mouseOverHandler: (offer: TOffer | null) => void;
+  customization?: TCustomizationCard;
+  onCardHover?: (offer: TOffer | null) => void;
 };
 
-function getRating(rating: number): string {
-  return `${(rating * 100) / MAX_RATING}%`;
-}
+function Card({
+  offer,
+  onCardHover,
+  customization = TYPE_CARD.CITY,
+}: TCardProps): JSX.Element {
+  const { id, isPremium, previewImage, price, rating, title, type } = offer;
+  const {
+    className: cardClassName,
+    width: cardWidth,
+    height: cardHeight,
+    buttonFavorite,
+  } = customization;
+  const { className: btnFavClassName, span: btnFavSpan } = buttonFavorite;
+  const path = `${AppRoute.Offer}${id}`;
 
-function Card({ offer, mouseOverHandler }: TCardProps): JSX.Element {
-  const { isPremium, previewImage, price, rating, title, type } = offer;
+  function calculateRating(): string {
+    return `${(rating * 100) / MAX_RATING}%`;
+  }
+
+  function handleMouseEnter() {
+    onCardHover?.(offer);
+  }
+
+  function handleMouseLeave() {
+    onCardHover?.(null);
+  }
 
   return (
     <article
-      className="cities__card place-card"
-      onMouseOver={() => mouseOverHandler(offer)}
-      onMouseLeave={() => mouseOverHandler(null)}
+      className={cardClassName}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {isPremium ? (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      ) : null}
+      <Premium isPremium={isPremium} mark={MarkType.Card} />
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Main}>
+        <Link to={path}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={cardWidth}
+            height={cardHeight}
             alt={title}
           />
         </Link>
@@ -43,21 +61,21 @@ function Card({ offer, mouseOverHandler }: TCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={btnFavClassName} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">{btnFavSpan}</span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: getRating(rating) }}></span>
+            <span style={{ width: calculateRating() }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Main}>{title}</Link>
+          <Link to={path}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

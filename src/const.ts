@@ -1,14 +1,45 @@
 const FAVORITE_QUANTITY = 4;
 
-const OFFER_COUNT = 312;
-
 const MAX_RATING = 5;
+
+const OFFER_GALLERY_QUANTITY = 6;
+
+const TYPE_CARD = {
+  CITY: {
+    className: 'cities__card place-card',
+    width: 260,
+    height: 200,
+    buttonFavorite: {
+      className: 'place-card__bookmark-button button',
+      span: 'To bookmarks',
+    }
+  },
+  FAVORITES: {
+    className: 'favorites__card place-card',
+    width: 150,
+    height: 110,
+    buttonFavorite: {
+      className: 'place-card__bookmark-button place-card__bookmark-button--active button',
+      span: 'In bookmarks',
+    }
+  },
+};
 
 enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer/',
+}
+
+enum MapType {
+  City = 'cities__map',
+  Offer = 'offer__map',
+}
+
+enum MarkType {
+  Card = 'place-card__mark',
+  Offer = 'offer__mark',
 }
 
 enum AuthorizationStatus {
@@ -17,10 +48,19 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+//tuple
+const RATING_STARS: readonly [string, string, string, string, string] = [
+  'terribly', 'badly', 'not bad', 'good', 'perfect'
+];
+
 export {
   FAVORITE_QUANTITY,
-  OFFER_COUNT,
   MAX_RATING,
+  TYPE_CARD,
+  RATING_STARS,
+  OFFER_GALLERY_QUANTITY,
   AppRoute,
   AuthorizationStatus,
+  MapType,
+  MarkType,
 };
