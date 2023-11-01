@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, FAVORITE_QUANTITY } from '../../const';
 
-type TNavProps = {
+type TNavigationProps = {
   authorization: AuthorizationStatus;
 };
 
-function Nav({ authorization }: TNavProps): JSX.Element {
+function Navigation({ authorization }: TNavigationProps): JSX.Element {
   return authorization === AuthorizationStatus.Auth ? (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -39,4 +39,4 @@ function Nav({ authorization }: TNavProps): JSX.Element {
   );
 }
 
-export { Nav };
+export { Navigation };
