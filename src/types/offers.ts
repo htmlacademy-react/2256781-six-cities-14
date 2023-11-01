@@ -1,9 +1,4 @@
-type TUser = {
-  id: number;
-  name: string;
-  isPro: boolean;
-  avatarUrl: string;
-}
+import { TUser } from '.';
 
 type TLocation = {
   latitude: number;

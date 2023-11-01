@@ -42,6 +42,12 @@ enum MarkType {
   Offer = 'offer__mark',
 }
 
+enum StarType {
+  Card = 'place-card',
+  Offer = 'offer',
+  Review = 'reviews',
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -53,14 +59,21 @@ const RATING_STARS: readonly [string, string, string, string, string] = [
   'terribly', 'badly', 'not bad', 'good', 'perfect'
 ];
 
+const COMMENT_DATE = 'MMMM YYYY';
+
+const COMMENT_DATE_TIME = 'YYYY-MM-DD';
+
 export {
   FAVORITE_QUANTITY,
   MAX_RATING,
   TYPE_CARD,
   RATING_STARS,
   OFFER_GALLERY_QUANTITY,
+  COMMENT_DATE,
+  COMMENT_DATE_TIME,
   AppRoute,
   AuthorizationStatus,
   MapType,
   MarkType,
+  StarType,
 };

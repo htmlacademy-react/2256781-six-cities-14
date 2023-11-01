@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOffer } from '../../types';
-import { AppRoute, MAX_RATING, TYPE_CARD, MarkType } from '../../const';
-import { Premium } from '..';
+import { AppRoute, TYPE_CARD, MarkType } from '../../const';
+import { Premium, StarLine } from '..';
+import { calculateRating } from '../../utils/utils';
 
 type TCardProps = {
   offer: TOffer;
@@ -23,10 +24,6 @@ function Card({
   } = customization;
   const { className: btnFavClassName, span: btnFavSpan } = buttonFavorite;
   const path = `${AppRoute.Offer}${id}`;
-
-  function calculateRating(): string {
-    return `${(rating * 100) / MAX_RATING}%`;
-  }
 
   function handleMouseEnter() {
     onCardHover?.(offer);
@@ -68,15 +65,13 @@ function Card({
             <span className="visually-hidden">{btnFavSpan}</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: calculateRating() }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+
+        <StarLine rating={rating} />
+
         <h2 className="place-card__name">
           <Link to={path}>{title}</Link>
         </h2>
+
         <p className="place-card__type">{type}</p>
       </div>
     </article>

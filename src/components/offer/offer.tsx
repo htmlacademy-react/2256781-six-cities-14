@@ -4,9 +4,10 @@ import {
   OfferGallery,
   Premium,
   Review,
-  Star,
+  StarLine,
 } from '../../components';
-import { MarkType, MapType } from '../../const';
+import { MarkType, MapType, StarType } from '../../const';
+import { getReviewsById } from '../../mocks/review';
 import { TOffer } from '../../types';
 import { getStringSuperscript } from '../../utils/utils';
 
@@ -16,6 +17,7 @@ type TOfferProps = {
 
 function Offer({ offer }: TOfferProps): JSX.Element {
   const {
+    id,
     isPremium,
     title,
     type,
@@ -25,9 +27,12 @@ function Offer({ offer }: TOfferProps): JSX.Element {
     goods,
     host,
     description,
+    rating,
   } = offer;
 
   const { avatarUrl, name, isPro } = host;
+
+  const reviews = getReviewsById(id);
 
   return (
     <section className="offer">
@@ -48,7 +53,7 @@ function Offer({ offer }: TOfferProps): JSX.Element {
             </button>
           </div>
 
-          <Star />
+          <StarLine rating={rating} type={StarType.Offer} />
 
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
@@ -88,9 +93,11 @@ function Offer({ offer }: TOfferProps): JSX.Element {
               <p className="offer__text">{description}</p>
             </div>
           </div>
-          <Review />
+
+          <Review reviews={reviews} />
         </div>
       </div>
+
       <Map type={MapType.Offer} />
     </section>
   );
