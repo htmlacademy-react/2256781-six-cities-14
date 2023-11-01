@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOffer } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
 import { Premium, StarLine } from '..';
-import { calculateRating } from '../../utils/utils';
 
 type TCardProps = {
   offer: TOffer;
