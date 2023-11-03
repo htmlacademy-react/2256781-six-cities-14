@@ -63,6 +63,15 @@ const COMMENT_DATE = 'MMMM YYYY';
 
 const COMMENT_DATE_TIME = 'YYYY-MM-DD';
 
+const MAP_MARKER_DEFAULT = 'img/pin.svg';
+
+const MAP_MARKER_CURRENT = 'img/pin-active.svg';
+
+const LAYER = {
+  URL: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+};
+
 export {
   FAVORITE_QUANTITY,
   MAX_RATING,
@@ -71,6 +80,9 @@ export {
   OFFER_GALLERY_QUANTITY,
   COMMENT_DATE,
   COMMENT_DATE_TIME,
+  MAP_MARKER_DEFAULT,
+  MAP_MARKER_CURRENT,
+  LAYER,
   AppRoute,
   AuthorizationStatus,
   MapType,

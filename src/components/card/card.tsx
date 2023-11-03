@@ -5,38 +5,40 @@ import { Premium, StarLine } from '..';
 
 type TCardProps = {
   offer: TOffer;
-  customization?: TCustomizationCard;
-  onCardHover?: (offer: TOffer | null) => void;
+  type?: TCustomizationCard;
+  onCardHover?(offer: TOffer): void;
+  onCardLeave?(): void;
 };
 
 function Card({
   offer,
   onCardHover,
-  customization = TYPE_CARD.CITY,
+  onCardLeave,
+  type = TYPE_CARD.CITY,
 }: TCardProps): JSX.Element {
-  const { id, isPremium, previewImage, price, rating, title, type } = offer;
+  const {
+    id,
+    isPremium,
+    previewImage,
+    price,
+    rating,
+    title,
+    type: offerType,
+  } = offer;
   const {
     className: cardClassName,
     width: cardWidth,
     height: cardHeight,
     buttonFavorite,
-  } = customization;
+  } = type;
   const { className: btnFavClassName, span: btnFavSpan } = buttonFavorite;
   const path = `${AppRoute.Offer}${id}`;
-
-  function handleMouseEnter() {
-    onCardHover?.(offer);
-  }
-
-  function handleMouseLeave() {
-    onCardHover?.(null);
-  }
 
   return (
     <article
       className={cardClassName}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => onCardHover?.(offer)}
+      onMouseLeave={()=> onCardLeave?.()}
     >
       <Premium isPremium={isPremium} mark={MarkType.Card} />
 
@@ -71,7 +73,7 @@ function Card({
           <Link to={path}>{title}</Link>
         </h2>
 
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{offerType}</p>
       </div>
     </article>
   );
