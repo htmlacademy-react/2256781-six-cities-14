@@ -30,4 +30,6 @@ type TOffer = {
   id: number;
 }
 
-export { type TOffer };
+type TOffers = TOffer[];
+
+export { type TOffer, type TOffers };

@@ -27,11 +27,7 @@ function FavoriteList({ offers }: TFavoriteListProps): JSX.Element {
           </div>
           <div className="favorites__places">
             {getOffersByCity(offers, city).map((offer) => (
-              <Card
-                key={offer.id}
-                offer={offer}
-                customization={TYPE_CARD.FAVORITES}
-              />
+              <Card key={offer.id} offer={offer} type={TYPE_CARD.FAVORITES} />
             ))}
           </div>
         </li>

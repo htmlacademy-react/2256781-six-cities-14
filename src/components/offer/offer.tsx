@@ -98,7 +98,7 @@ function Offer({ offer }: TOfferProps): JSX.Element {
         </div>
       </div>
 
-      <Map type={MapType.Offer} />
+      <Map type={MapType.Offer} selectedOffer={offer} />
     </section>
   );
 }
