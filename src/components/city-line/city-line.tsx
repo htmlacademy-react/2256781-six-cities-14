@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCityAction } from '../../store';
 
-function Location(): JSX.Element {
+function CityLine(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
   const dispatch = useAppDispatch();
 
@@ -37,4 +37,4 @@ function Location(): JSX.Element {
   );
 }
 
-export { Location };
+export { CityLine };

@@ -1,14 +1,14 @@
 import { OfferList, Sort } from '..';
 import { TCityName, TOfferPreview, TOffersPreview } from '../../types';
 
-type TPlaceListProps = {
+type TOfferBoardProps = {
   offers: TOffersPreview;
   cityName: TCityName;
   onCardHover?(offer: TOfferPreview): void;
   onCardLeave?(): void;
 };
 
-function PlaceList({ offers, cityName, onCardHover, onCardLeave }: TPlaceListProps): JSX.Element {
+function OfferBoard({ offers, cityName, onCardHover, onCardLeave }: TOfferBoardProps): JSX.Element {
   const offerCount = offers.length;
 
   return (
@@ -21,4 +21,4 @@ function PlaceList({ offers, cityName, onCardHover, onCardLeave }: TPlaceListPro
   );
 }
 
-export { PlaceList };
+export { OfferBoard };

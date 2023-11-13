@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Header, NearList, Offer } from '../../components';
+import { Header, Nearby, Offer } from '../../components';
 import { NotFoundPage } from '..';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
@@ -43,7 +43,7 @@ function OfferPage(): JSX.Element {
       <main className="page__main page__main--offer">
         <Offer offer={currentOffer} />
         <div className="container">
-          <NearList />
+          <Nearby />
         </div>
       </main>
     </div>

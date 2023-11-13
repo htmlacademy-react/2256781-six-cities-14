@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TOffer, TCityName, TReviews, TOffersPreview } from '../types';
 import { offers } from '../mocks/offers';
-import { getActiveCityByDefault } from '../utils/utils';
+import { getActiveCityByDefault } from '../utils';
 import { dropOfferAction, fetchFavoritesAction, fetchNearPlacesAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, requireAuthorizationAction, setActiveCityAction, setErrorAction } from '.';
 import { getOffer } from '../mocks/offer';
 import { getRandomReview } from '../mocks/reviews';
@@ -36,7 +36,7 @@ const initialState: InitialState = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchOffersAction, (state) => {
-      state.offers = offers;
+      state.offers = offers.filter(({ city }) => city.name === state.city);
       state.nearPlaces = [];
       state.reviews = [];
     })
@@ -55,6 +55,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveCityAction, (state, { payload }) => {
       state.city = payload;
+      state.offers = offers.filter(({ city }) => city.name === payload);
     })
     .addCase(fetchFavoritesAction, (state) => {
       state.favorites = state.offers.filter(({ isFavorite }) => isFavorite);

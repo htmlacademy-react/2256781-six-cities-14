@@ -9,7 +9,7 @@ import {
 import { MarkType, MapType, StarType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { TOffer } from '../../types';
-import { getStringSuperscript } from '../../utils/utils';
+import { getStringSuperscript } from '../../utils/common';
 
 type TOfferProps = {
   offer: TOffer;

@@ -2,7 +2,7 @@ import { MAX_NEAR_PLACES_COUNT, TYPE_CARD } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Card } from '..';
 
-function NearList(): JSX.Element {
+function Nearby(): JSX.Element {
   const nearPlaces = useAppSelector((state) => state.nearPlaces)?.slice(
     0,
     MAX_NEAR_PLACES_COUNT
@@ -20,4 +20,4 @@ function NearList(): JSX.Element {
   );
 }
 
-export { NearList };
+export { Nearby };

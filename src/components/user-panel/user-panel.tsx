@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, FAVORITE_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
 
-function Navigation(): JSX.Element {
+function UserPanel(): JSX.Element {
   const authorization = useAppSelector((state) => state.authorizationStatus);
 
   return authorization === AuthorizationStatus.Auth ? (
@@ -33,7 +33,7 @@ function Navigation(): JSX.Element {
         <li className="header__nav-item user">
           <Link
             className="header__nav-link header__nav-link--profile"
-            to={AppRoute.Main}
+            to={AppRoute.Login}
           >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__login">Sign in</span>
@@ -44,4 +44,4 @@ function Navigation(): JSX.Element {
   );
 }
 
-export { Navigation };
+export { UserPanel };

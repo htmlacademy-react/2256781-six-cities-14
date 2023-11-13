@@ -1,5 +1,5 @@
 import { Logo } from '../logo/logo';
-import { Navigation } from '../navigation/navigation';
+import { UserPanel } from '../user-panel/user-panel';
 
 function Header(): JSX.Element {
   return (
@@ -9,7 +9,7 @@ function Header(): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation />
+          <UserPanel />
         </div>
       </div>
     </header>

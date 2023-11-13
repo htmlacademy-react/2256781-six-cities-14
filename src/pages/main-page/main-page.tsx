@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Header, Location, Map, PlaceList } from '../../components';
+import { Header, CityLine, Map, OfferBoard } from '../../components';
 import { MapType } from '../../const';
 import { TOfferPreview } from '../../types';
 import { useState } from 'react';
@@ -22,10 +22,10 @@ function MainPage(): JSX.Element {
       <Header />
 
       <main className="page__main page__main--index">
-        <Location />
+        <CityLine />
         <div className="cities">
           <div className="cities__places-container container">
-            <PlaceList
+            <OfferBoard
               cityName={activeCity}
               offers={offers}
               onCardHover={handleCardHover}

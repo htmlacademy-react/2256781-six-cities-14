@@ -85,7 +85,7 @@ const LAYER = {
 const CITIES: TCityItems = [
   {
     city: 'Paris',
-    active: false,
+    active: true,
   },
   {
     city: 'Cologne',
@@ -97,7 +97,7 @@ const CITIES: TCityItems = [
   },
   {
     city: 'Amsterdam',
-    active: true,
+    active: false,
   },
   {
     city: 'Hamburg',
