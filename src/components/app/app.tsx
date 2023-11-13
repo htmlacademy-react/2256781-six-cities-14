@@ -8,29 +8,19 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
-import { TOffer } from '../../types';
 
-type TAppProps = {
-  offers: TOffer[];
-  authorization: AuthorizationStatus;
-};
-
-function App({ offers, authorization }: TAppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <Routes>
-      <Route
-        path={AppRoute.Main}
-        element={<MainPage offers={offers} authorization={authorization} />}
-      />
+      <Route path={AppRoute.Main} element={<MainPage />} />
       <Route
         path={AppRoute.Login}
         element={
           <ProtectedRoute
-            authorization={authorization}
             restrictedFor={AuthorizationStatus.Auth}
             redirectTo={AppRoute.Main}
           >
-            <LoginPage authorization={authorization} />
+            <LoginPage />
           </ProtectedRoute>
         }
       />
@@ -38,18 +28,14 @@ function App({ offers, authorization }: TAppProps): JSX.Element {
         path={AppRoute.Favorites}
         element={
           <ProtectedRoute
-            authorization={authorization}
             restrictedFor={AuthorizationStatus.NoAuth}
             redirectTo={AppRoute.Login}
           >
-            <FavoritePage authorization={authorization} offers={offers} />
+            <FavoritePage />
           </ProtectedRoute>
         }
       />
-      <Route
-        path={`${AppRoute.Offer}:id`}
-        element={<OfferPage authorization={authorization} offers={offers}/>}
-      />
+      <Route path={`${AppRoute.Offer}:offerId`} element={<OfferPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

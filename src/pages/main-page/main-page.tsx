@@ -1,18 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { Header, Location, Map, Place } from '../../components';
-import { AuthorizationStatus } from '../../const';
-import { TOffer, TOffers } from '../../types';
+import { Header, Location, Map, PlaceList } from '../../components';
+import { MapType } from '../../const';
+import { TOfferPreview } from '../../types';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 
-type TMainPageProps = {
-  offers: TOffers;
-  authorization: AuthorizationStatus;
-};
+function MainPage(): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city);
+  const [activeCard, setActiveCard] = useState<TOfferPreview | null>(null);
+  const offers = useAppSelector((state) => state.offers);
 
-function MainPage({ offers, authorization }: TMainPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<TOffer | null>(null);
-
-  const handleCardHover = (offer: TOffer) => setActiveCard(offer);
+  const handleCardHover = (offer: TOfferPreview) => setActiveCard(offer);
   const handleCardLeave = () => setActiveCard(null);
 
   return (
@@ -21,19 +19,24 @@ function MainPage({ offers, authorization }: TMainPageProps): JSX.Element {
         <title>6 Cities - Main page</title>
       </Helmet>
 
-      <Header authorization={authorization} />
+      <Header />
 
       <main className="page__main page__main--index">
         <Location />
         <div className="cities">
           <div className="cities__places-container container">
-            <Place
+            <PlaceList
+              cityName={activeCity}
               offers={offers}
               onCardHover={handleCardHover}
               onCardLeave={handleCardLeave}
             />
             <div className="cities__right-section">
-              <Map offers={offers} selectedOffer={activeCard} />
+              <Map
+                type={MapType.City}
+                offers={offers}
+                activeOffer={activeCard}
+              />
             </div>
           </div>
         </div>

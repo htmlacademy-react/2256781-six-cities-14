@@ -6,30 +6,35 @@ type TLocation = {
   zoom: number;
 }
 
+type TCityName = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+
 type TCity = {
-  name: string;
+  name: TCityName;
   location: TLocation;
 }
 
-type TOffer = {
+type TOfferPreview = {
   city: TCity;
   previewImage: string;
-  images: string[];
   title: string;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   type: string;
+  price: number;
+  location: TLocation;
+  id: string;
+}
+
+type TOffer = Omit<TOfferPreview & {
   bedrooms: number;
   maxAdults: number;
-  price: number;
   goods: string[];
   host: TUser;
   description: string;
-  location: TLocation;
-  id: number;
-}
+  images: string[];
+}, 'previewImage'>
 
-type TOffers = TOffer[];
+type TOffersPreview = TOfferPreview[];
 
-export { type TOffer, type TOffers };
+export { type TOffer, type TCityName, type TOfferPreview, type TOffersPreview, type TLocation };

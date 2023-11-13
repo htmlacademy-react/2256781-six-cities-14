@@ -4,7 +4,6 @@ const reviewsOne: TReviews = [
   {
     id: 1,
     user: {
-      id: 15,
       isPro: false,
       name: 'Kendall',
       avatarUrl: 'https://14.react.pages.academy/static/avatar/6.jpg'
@@ -19,7 +18,6 @@ const reviewsTwo: TReviews = [
   {
     id: 1,
     user: {
-      id: 14,
       isPro: true,
       name: 'Corey',
       avatarUrl: 'https://14.react.pages.academy/static/avatar/5.jpg'
@@ -31,7 +29,6 @@ const reviewsTwo: TReviews = [
   {
     id: 2,
     user: {
-      id: 13,
       isPro: false,
       name: 'Zak',
       avatarUrl: 'https://14.react.pages.academy/static/avatar/4.jpg'
@@ -46,7 +43,6 @@ const reviewsThird: TReviews = [
   {
     id: 1,
     user: {
-      id: 13,
       isPro: false,
       name: 'Zak',
       avatarUrl: 'https://14.react.pages.academy/static/avatar/4.jpg'
@@ -58,7 +54,6 @@ const reviewsThird: TReviews = [
   {
     id: 2,
     user: {
-      id: 15,
       isPro: false,
       name: 'Kendall',
       avatarUrl: 'https://14.react.pages.academy/static/avatar/6.jpg'
@@ -78,4 +73,16 @@ function getReviewsById(id: number): TReviews | undefined {
   return reviewsStorage.get(id);
 }
 
-export { getReviewsById };
+const getRandomInteger = (a: number, b: number): number => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
+
+function getRandomReview() {
+  const id = getRandomInteger(1, 3);
+  return reviewsStorage.get(id) ?? reviewsOne;
+}
+export { getReviewsById, getRandomReview };

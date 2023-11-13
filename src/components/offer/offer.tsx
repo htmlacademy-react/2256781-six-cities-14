@@ -7,7 +7,7 @@ import {
   StarLine,
 } from '../../components';
 import { MarkType, MapType, StarType } from '../../const';
-import { getReviewsById } from '../../mocks/review';
+import { useAppSelector } from '../../hooks';
 import { TOffer } from '../../types';
 import { getStringSuperscript } from '../../utils/utils';
 
@@ -16,8 +16,8 @@ type TOfferProps = {
 };
 
 function Offer({ offer }: TOfferProps): JSX.Element {
+  const reviews = useAppSelector((state) => state.reviews);
   const {
-    id,
     isPremium,
     title,
     type,
@@ -29,10 +29,7 @@ function Offer({ offer }: TOfferProps): JSX.Element {
     description,
     rating,
   } = offer;
-
   const { avatarUrl, name, isPro } = host;
-
-  const reviews = getReviewsById(id);
 
   return (
     <section className="offer">
@@ -98,7 +95,7 @@ function Offer({ offer }: TOfferProps): JSX.Element {
         </div>
       </div>
 
-      <Map type={MapType.Offer} selectedOffer={offer} />
+      <Map type={MapType.Offer} activeOffer={offer} />
     </section>
   );
 }

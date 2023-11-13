@@ -1,20 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
-type TLoginPageProps = {
-  authorization: AuthorizationStatus;
-};
-
-function LoginPage({ authorization }: TLoginPageProps): JSX.Element {
+function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>
         <title>6 Cities - Login page</title>
       </Helmet>
 
-      <Header authorization={authorization} />
+      <Header />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

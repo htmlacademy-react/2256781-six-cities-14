@@ -1,61 +1,35 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, CITIES } from '../../const';
+import cn from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setActiveCityAction } from '../../store';
 
 function Location(): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city);
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item"
-                to={AppRoute.Main}
-              >
-                <span>Paris</span>
-              </Link>
-            </li>
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item"
-                to={AppRoute.Main}
-              >
-                <span>Cologne</span>
-              </Link>
-            </li>
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item"
-                to={AppRoute.Main}
-              >
-                <span>Brussels</span>
-              </Link>
-            </li>
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item tabs__item--active"
-                to={AppRoute.Main}
-              >
-                <span>Amsterdam</span>
-              </Link>
-            </li>
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item"
-                to={AppRoute.Main}
-              >
-                <span>Hamburg</span>
-              </Link>
-            </li>
-            <li className="locations__item">
-              <Link
-                className="locations__item-link tabs__item"
-                to={AppRoute.Main}
-              >
-                <span>Dusseldorf</span>
-              </Link>
-            </li>
+            {CITIES.map((item) => (
+              <li className="locations__item" key={item.city}>
+                <Link
+                  className={cn('locations__item-link tabs__item', {
+                    'tabs__item--active': item.city === activeCity,
+                  })}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    dispatch(setActiveCityAction(item.city));
+                  }}
+                  to={AppRoute.Main}
+                >
+                  <span>{item.city}</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </section>
       </div>
