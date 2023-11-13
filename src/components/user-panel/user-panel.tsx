@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, FAVORITE_QUANTITY } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type TNavigationProps = {
-  authorization: AuthorizationStatus;
-};
+function UserPanel(): JSX.Element {
+  const authorization = useAppSelector((state) => state.authorizationStatus);
 
-function Navigation({ authorization }: TNavigationProps): JSX.Element {
   return authorization === AuthorizationStatus.Auth ? (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Main}>
+          <Link
+            className="header__nav-link header__nav-link--profile"
+            to={AppRoute.Main}
+          >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">
               Oliver.conner@gmail.com
@@ -29,7 +31,10 @@ function Navigation({ authorization }: TNavigationProps): JSX.Element {
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Main}>
+          <Link
+            className="header__nav-link header__nav-link--profile"
+            to={AppRoute.Login}
+          >
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__login">Sign in</span>
           </Link>
@@ -39,4 +44,4 @@ function Navigation({ authorization }: TNavigationProps): JSX.Element {
   );
 }
 
-export { Navigation };
+export { UserPanel };

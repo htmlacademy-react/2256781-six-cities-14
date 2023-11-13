@@ -1,9 +1,9 @@
 import { Card } from '..';
-import { TOffer } from '../../types';
+import { TOfferPreview, TOffersPreview } from '../../types';
 
 type TOfferListProps = {
-  offers: TOffer[];
-  onCardHover?(offer: TOffer): void;
+  offers: TOffersPreview;
+  onCardHover?(offer: TOfferPreview): void;
   onCardLeave?(): void;
 };
 

@@ -1,14 +1,7 @@
-import { AuthorizationStatus } from '../../const';
 import { Logo } from '../logo/logo';
-import { Navigation } from '../navigation/navigation';
+import { UserPanel } from '../user-panel/user-panel';
 
-type THeaderProps = {
-  authorization: AuthorizationStatus;
-};
-
-function Header({
-  authorization = AuthorizationStatus.NoAuth,
-}: THeaderProps): JSX.Element {
+function Header(): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -16,7 +9,7 @@ function Header({
           <div className="header__left">
             <Logo />
           </div>
-          <Navigation authorization={authorization} />
+          <UserPanel />
         </div>
       </div>
     </header>

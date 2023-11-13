@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { TCustomizationCard, TOffer } from '../../types';
+import { TCustomizationCard, TOfferPreview } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
 import { Premium, StarLine } from '..';
 
 type TCardProps = {
-  offer: TOffer;
+  offer: TOfferPreview;
   type?: TCustomizationCard;
-  onCardHover?(offer: TOffer): void;
+  onCardHover?(offer: TOfferPreview): void;
   onCardLeave?(): void;
 };
 

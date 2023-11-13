@@ -5,11 +5,11 @@ import { LAYER } from '../../const';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  offer: TOffer
+  offer: TOffer,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderRef = useRef<boolean>(false);
-  const { latitude, longitude, zoom } = offer.city.location;
+  const { latitude, longitude, zoom } = offer.location;
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderRef.current) {

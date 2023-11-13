@@ -1,13 +1,19 @@
 import { useEffect, useRef } from 'react';
-import { MAP_MARKER_CURRENT, MAP_MARKER_DEFAULT, MapType } from '../../const';
+import {
+  DEFAULT_COORDINATE_MAP,
+  DEFAULT_OFFER,
+  MAP_MARKER_CURRENT,
+  MAP_MARKER_DEFAULT,
+  MapType,
+} from '../../const';
 import { useMap } from '../../hooks';
-import { TOffer, TOffers } from '../../types';
-import { Icon, Marker } from 'leaflet';
+import { TOffer, TOfferPreview, TOffersPreview } from '../../types';
+import leaflet, { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type TMapProps = {
-  selectedOffer?: TOffer | null;
-  offers?: TOffers | [];
+  activeOffer: TOfferPreview | TOffer | null;
+  offers?: TOffersPreview | [];
   type?: MapType;
 };
 
@@ -24,33 +30,57 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({
-  selectedOffer,
+  activeOffer,
   offers = [],
   type = MapType.City,
 }: TMapProps): JSX.Element {
-  const currentOffer = selectedOffer ?? offers[0];
-  const markedOfferId = selectedOffer ? selectedOffer.id : null;
+  const markedOfferId = activeOffer?.id;
   const mapRef = useRef<HTMLElement | null>(null);
-  const map = useMap(mapRef, currentOffer);
+  const map = useMap(mapRef, DEFAULT_OFFER as TOffer);
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer: TOffer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
+      const mapCity = offers.length
+        ? offers[0].city.location
+        : DEFAULT_COORDINATE_MAP;
 
-        marker
-          .setIcon(
-            markedOfferId && offer.id === markedOfferId
-              ? currentCustomIcon
-              : defaultCustomIcon
+      map.setView(
+        {
+          lat: mapCity.latitude,
+          lng: mapCity.longitude,
+        },
+        mapCity.zoom
+      );
+    }
+  }, [map, offers]);
+
+  useEffect(() => {
+    if (map) {
+      const markerGroup = leaflet.layerGroup().addTo(map);
+
+      offers.forEach((offer) => {
+        leaflet
+          .marker(
+            {
+              lat: offer.location.latitude,
+              lng: offer.location.longitude,
+            },
+            {
+              icon:
+                markedOfferId && offer.id === markedOfferId
+                  ? currentCustomIcon
+                  : defaultCustomIcon,
+            }
           )
-          .addTo(map);
+          .addTo(markerGroup);
       });
+
+      return () => {
+        markerGroup.clearLayers();
+      };
     }
   }, [map, offers, markedOfferId]);
+
   return <section className={`${type} map`} ref={mapRef}></section>;
 }
 

@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, TYPE_CARD } from '../../const';
-import { TOffer } from '../../types';
 import { Card } from '../../components';
+import { getOffersByCity } from '../../utils';
+import { TOffersPreview } from '../../types';
 
 type TFavoriteListProps = {
-  offers: TOffer[];
+  favorites: TOffersPreview;
 };
 
-function getOffersByCity(offers: TOffer[], city: string): TOffer[] | [] {
-  return offers.filter((offer) => offer?.city?.name === city);
-}
-
-function FavoriteList({ offers }: TFavoriteListProps): JSX.Element {
-  const cities = [...new Set(offers.map((offer) => offer?.city?.name))];
+function FavoriteList({ favorites }: TFavoriteListProps): JSX.Element {
+  const cities = [...new Set(favorites.map((offer) => offer?.city?.name))];
 
   return (
     <ul className="favorites__list">
@@ -26,7 +23,7 @@ function FavoriteList({ offers }: TFavoriteListProps): JSX.Element {
             </div>
           </div>
           <div className="favorites__places">
-            {getOffersByCity(offers, city).map((offer) => (
+            {getOffersByCity(favorites, city).map((offer) => (
               <Card key={offer.id} offer={offer} type={TYPE_CARD.FAVORITES} />
             ))}
           </div>

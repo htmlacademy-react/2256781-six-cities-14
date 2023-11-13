@@ -1,5 +1,5 @@
 import { StarType } from '../../const';
-import { calculateRating } from '../../utils/utils';
+import { calculateRating } from '../../utils';
 
 type TStarProps = {
   type?: StarType;

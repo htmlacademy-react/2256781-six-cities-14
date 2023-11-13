@@ -1,15 +1,16 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type TProtectedRouteProps = {
-  authorization: AuthorizationStatus;
   restrictedFor: AuthorizationStatus;
   redirectTo: AppRoute;
   children: JSX.Element;
 };
 
 function ProtectedRoute(props: TProtectedRouteProps): JSX.Element {
-  const { authorization, restrictedFor, redirectTo, children } = props;
+  const { restrictedFor, redirectTo, children } = props;
+  const authorization = useAppSelector((state) => state.authorizationStatus);
 
   return authorization === restrictedFor ? (
     <Navigate to={redirectTo} />
