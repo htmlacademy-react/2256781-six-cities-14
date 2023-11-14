@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { TSorting } from '../../types';
 import { SORTING_MAP } from '../../const';
 import cn from 'classnames';
