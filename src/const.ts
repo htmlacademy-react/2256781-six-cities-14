@@ -34,7 +34,7 @@ const TYPE_CARD = {
       span: 'In bookmarks',
     }
   },
-};
+} as const;
 
 enum AppRoute {
   Main = '/',
@@ -158,6 +158,13 @@ const DEFAULT_OFFER = {
   id: '0'
 };
 
+const SORTING_MAP = {
+  POPULAR: 'Popular',
+  LTH: 'Price: low to high',
+  HTL: 'Price: high to low',
+  TOP: 'Top rated first',
+} as const;
+
 export {
   FAVORITE_QUANTITY,
   MAX_RATING,
@@ -173,6 +180,7 @@ export {
   MAX_NEAR_PLACES_COUNT,
   DEFAULT_COORDINATE_MAP,
   DEFAULT_OFFER,
+  SORTING_MAP,
   AppRoute,
   AuthorizationStatus,
   MapType,
