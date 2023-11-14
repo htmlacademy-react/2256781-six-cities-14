@@ -20,4 +20,4 @@ export * from './offer-board/offer-board';
 export * from './rating-form/rating-form';
 export * from './premium/premium';
 export * from './review-item/review-item';
-export * from './sort/sort';
+export * from './sorting/sorting';
