@@ -8,13 +8,8 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
-import { fetchOffersAction } from '../../store';
-import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(fetchOffersAction());
-
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<MainPage />} />

@@ -4,7 +4,12 @@ import { App } from './components';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { getAuth, getOffers, store } from './store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+store.dispatch(getAuth());
+store.dispatch(getOffers());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,6 +20,7 @@ root.render(
     <HelmetProvider>
       <BrowserRouter>
         <Provider store={store}>
+          <ToastContainer />
           <App />
         </Provider>
       </BrowserRouter>

@@ -1,7 +1,7 @@
 import { TUser } from '.';
 
 type TReview = {
-  id: number;
+  id: string;
   user: TUser;
   rating: number;
   comment: string;
@@ -10,4 +10,6 @@ type TReview = {
 
 type TReviews = TReview[];
 
-export { type TReviews, type TReview };
+type TReviewData = Omit<TReview, 'user' | 'date'>;
+
+export { type TReviews, type TReview, type TReviewData };
