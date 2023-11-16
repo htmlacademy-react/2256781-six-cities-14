@@ -37,4 +37,6 @@ type TOffer = Omit<TOfferPreview & {
 
 type TOffersPreview = TOfferPreview[];
 
-export { type TOffer, type TCityName, type TOfferPreview, type TOffersPreview, type TLocation };
+type OfferId = string;
+
+export { type TOffer, type TCityName, type TOfferPreview, type TOffersPreview, type TLocation, type OfferId };

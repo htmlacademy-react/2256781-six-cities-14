@@ -1,23 +1,27 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCityName, TOffer } from '../types';
+import { TCityName, TOffer, TOffersPreview, TReviews, TUserData } from '../types';
 import { AuthorizationStatus, NameSpace } from '../const';
 
-const fetchOffersAction = createAction(`${NameSpace.Offers}/fetchOffers`);
+const assignOffers = createAction<TOffersPreview>(`${NameSpace.Offers}/assignOffers`);
 
-const fetchOfferAction = createAction<TOffer['id']>(`${NameSpace.Offer}/fetchOffer`);
+const assignOffer = createAction<TOffer>(`${NameSpace.Offer}/assignOffer`);
 
-const fetchNearPlacesAction = createAction<TOffer['id']>(`${NameSpace.NearPlaces}/fetchNearPlaces`);
+const assignEmptyOffer = createAction(`${NameSpace.Offer}/assignEmptyOffer`);
 
-const fetchReviewsAction = createAction<TOffer['id']>(`${NameSpace.Reviews}/fetchReviews`);
+const assignNearPlaces = createAction<TOffersPreview>(`${NameSpace.NearPlaces}/assignNearPlaces`);
 
-const dropOfferAction = createAction(`${NameSpace.Offer}/dropOffer`);
+const assignReviews = createAction<TReviews>(`${NameSpace.Reviews}/assignReviews`);
 
-const setActiveCityAction = createAction<TCityName>(`${NameSpace.Offers}/setActiveCity`);
+const assignActiveCity = createAction<TCityName>(`${NameSpace.Offers}/assignActiveCity`);
 
-const fetchFavoritesAction = createAction(`${NameSpace.Offers}/fetchFavorites`);
+const assignFavorites = createAction<TOffersPreview>(`${NameSpace.Offers}/assignFavorites`);
 
-const setErrorAction = createAction<string | null>(`${NameSpace.Data}/setError`);
+const assignAuthStatus = createAction<AuthorizationStatus>(`${NameSpace.User}/assignAuthStatus`);
 
-const requireAuthorizationAction = createAction<AuthorizationStatus>(`${NameSpace.User}/requireAuthorization`);
+const assignLoadingStatus = createAction<boolean>(`${NameSpace.Loading}/assignLoadingStatus`);
 
-export { fetchOffersAction, fetchOfferAction, fetchNearPlacesAction, fetchReviewsAction, dropOfferAction, setActiveCityAction, fetchFavoritesAction, setErrorAction, requireAuthorizationAction };
+const assignUser = createAction<TUserData>(`${NameSpace.User}/assignUser`);
+
+const assignEmptyUser = createAction(`${NameSpace.User}/assignEmptyUser`);
+
+export { assignOffers, assignOffer, assignNearPlaces, assignReviews, assignEmptyOffer, assignActiveCity, assignFavorites, assignAuthStatus, assignLoadingStatus, assignUser, assignEmptyUser };

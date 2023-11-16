@@ -8,12 +8,20 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
-import { fetchOffersAction } from '../../store';
+import { getAuth, getOffers } from '../../store';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(fetchOffersAction());
+
+  useEffect(() => {
+    dispatch(getAuth());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getOffers());
+  }, [dispatch]);
 
   return (
     <Routes>

@@ -10,9 +10,9 @@ type TProtectedRouteProps = {
 
 function ProtectedRoute(props: TProtectedRouteProps): JSX.Element {
   const { restrictedFor, redirectTo, children } = props;
-  const authorization = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
-  return authorization === restrictedFor ? (
+  return authStatus === restrictedFor ? (
     <Navigate to={redirectTo} />
   ) : (
     children

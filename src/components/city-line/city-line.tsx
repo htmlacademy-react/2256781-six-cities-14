@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setActiveCityAction } from '../../store';
+import { assignActiveCity } from '../../store';
 
 function CityLine(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
@@ -22,7 +22,7 @@ function CityLine(): JSX.Element {
                   })}
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(setActiveCityAction(item.city));
+                    dispatch(assignActiveCity(item.city));
                   }}
                   to={AppRoute.Main}
                 >

@@ -117,6 +117,7 @@ enum NameSpace {
   Reviews = 'REVIEWS',
   User = 'USER',
   Data = 'DATA',
+  Loading = 'LOADING',
 }
 
 const MAX_NEAR_PLACES_COUNT = 10;
@@ -165,6 +166,17 @@ const SORTING_MAP = {
   TOP: 'Top rated first',
 } as const;
 
+enum APIRoute {
+  Offers = '/offers',
+  Offer = '/offers/{offerId}',
+  Nearby = '/offers/{offerId}/nearby',
+  Favorite = '/favorite',
+  FavoriteStatus = '/favorite/{offerId}/{status}',
+  Review = '/comments/{offerId}',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export {
   FAVORITE_QUANTITY,
   MAX_RATING,
@@ -187,4 +199,5 @@ export {
   MarkType,
   StarType,
   NameSpace,
+  APIRoute,
 };

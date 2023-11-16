@@ -4,4 +4,9 @@ type TUser = {
   avatarUrl: string;
 }
 
-export { type TUser };
+type TUserData = TUser & {
+  email: string;
+  token: string;
+};
+
+export { type TUserData, type TUser };
