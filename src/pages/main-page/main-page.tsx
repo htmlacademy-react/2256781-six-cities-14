@@ -23,12 +23,6 @@ function MainPage(): JSX.Element {
   const handleCardLeave = () => setActiveCard(null);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
 
-  if (isDataLoading) {
-    return (
-      <Spinner color="#4481c3" width={8} height={100} cssOverride={override} />
-    );
-  }
-
   return (
     <div className="page page--gray page--main" data-active-card={activeCard}>
       <Helmet>
@@ -39,23 +33,34 @@ function MainPage(): JSX.Element {
 
       <main className="page__main page__main--index">
         <CityLine />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <OfferBoard
-              cityName={activeCity}
-              offers={offersToRender}
-              onCardHover={handleCardHover}
-              onCardLeave={handleCardLeave}
-            />
-            <div className="cities__right-section">
-              <Map
-                type={MapType.City}
+        {isDataLoading && (
+          <Spinner
+            color="#4481c3"
+            width={10}
+            height={200}
+            cssOverride={override}
+            margin={10}
+          />
+        )}
+        {!isDataLoading && (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <OfferBoard
+                cityName={activeCity}
                 offers={offersToRender}
-                activeOffer={activeCard}
+                onCardHover={handleCardHover}
+                onCardLeave={handleCardLeave}
               />
+              <div className="cities__right-section">
+                <Map
+                  type={MapType.City}
+                  offers={offersToRender}
+                  activeOffer={activeCard}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );
