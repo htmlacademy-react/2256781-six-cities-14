@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { OfferId, TAppDispatch, TAuthData, TOffer, TOffersPreview,TReviewData, TReviews, TState, TUserData } from '../types';
+import { OfferId, TAppDispatch, TAuthData, TOffer, TOffersPreview, TReviewData, TReviews, TState, TUserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { assignFavorites, assignLoadingStatus, assignNearPlaces, assignOffer, assignOffers, assignReviews, assignUser, assignAuthStatus, assignToken, assignEmptyUser } from '.';
+import { assignFavorites, assignLoadingStatus, assignNearPlaces, assignOffer, assignOffers, assignReviews, assignUser, assignAuthStatus, assignEmptyUser } from '.';
 import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
 import { toast } from 'react-toastify';
-import { dropToken } from '../services/token';
+import { dropToken, saveToken } from '../services/token';
 
 function replaceOfferId(originalValue: string, offerId: string): string {
   const pattern = /{offerId}/g;
@@ -25,9 +25,6 @@ const getAuth = createAsyncThunk<void, undefined, {
       dispatch(assignUser(data));
     } catch (error) {
       dispatch(assignAuthStatus(AuthorizationStatus.NoAuth));
-      if (error instanceof Error) {
-        toast.warn(error.message);
-      }
     } finally {
       dispatch(assignLoadingStatus(true));
     }
@@ -117,14 +114,11 @@ const postAuth = createAsyncThunk<void, TAuthData, {
     try {
       dispatch(assignLoadingStatus(true));
       const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
-      dispatch(assignToken(data.token));
+      saveToken(data.token);
       dispatch(assignAuthStatus(AuthorizationStatus.Auth));
       dispatch(assignUser(data));
     } catch (error) {
       dispatch(assignAuthStatus(AuthorizationStatus.NoAuth));
-      if (error instanceof Error) {
-        toast.warn(error.message);
-      }
     } finally {
       dispatch(assignLoadingStatus(false));
     }
@@ -144,14 +138,10 @@ const deleteAuth = createAsyncThunk<void, undefined, {
       dropToken();
       dispatch(assignEmptyUser());
       dispatch(assignAuthStatus(AuthorizationStatus.NoAuth));
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.warn(error.message);
-      }
     } finally {
       dispatch(assignLoadingStatus(false));
     }
-  },
+  }
 );
 
 const postReview = createAsyncThunk<void, TReviewData, {

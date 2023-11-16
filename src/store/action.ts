@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCityName, TOffer, TOffersPreview, TReviews, TToken, TUserData } from '../types';
+import { TCityName, TOffer, TOffersPreview, TReviews, TUserData } from '../types';
 import { AuthorizationStatus, NameSpace } from '../const';
 
 const assignOffers = createAction<TOffersPreview>(`${NameSpace.Offers}/assignOffers`);
@@ -24,6 +24,4 @@ const assignUser = createAction<TUserData>(`${NameSpace.User}/assignUser`);
 
 const assignEmptyUser = createAction(`${NameSpace.User}/assignEmptyUser`);
 
-const assignToken = createAction<TToken>(`${NameSpace.User}/assignToken`);
-
-export { assignOffers, assignOffer, assignNearPlaces, assignReviews, assignEmptyOffer, assignActiveCity, assignFavorites, assignAuthStatus, assignLoadingStatus, assignUser, assignToken, assignEmptyUser };
+export { assignOffers, assignOffer, assignNearPlaces, assignReviews, assignEmptyOffer, assignActiveCity, assignFavorites, assignAuthStatus, assignLoadingStatus, assignUser, assignEmptyUser };

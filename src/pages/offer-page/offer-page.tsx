@@ -4,11 +4,7 @@ import { NotFoundPage } from '..';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import {
-  dropOfferAction,
-  fetchNearPlacesAction,
-  fetchOfferAction,
-} from '../../store';
+import { assignEmptyOffer, getNearbyPlaces, getOffer } from '../../store';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -17,12 +13,12 @@ function OfferPage(): JSX.Element {
 
   useEffect(() => {
     if (offerId) {
-      dispatch(fetchOfferAction(offerId));
-      dispatch(fetchNearPlacesAction(offerId));
+      dispatch(getOffer(offerId));
+      dispatch(getNearbyPlaces(offerId));
     }
 
     return () => {
-      dispatch(dropOfferAction());
+      dispatch(assignEmptyOffer());
     };
   }, [offerId, dispatch]);
 
