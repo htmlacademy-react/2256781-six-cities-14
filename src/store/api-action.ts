@@ -25,7 +25,7 @@ const getAuth = createAsyncThunk<void, undefined, {
     } catch (error) {
       dispatch(assignAuthStatus(AuthorizationStatus.NoAuth));
     } finally {
-      dispatch(assignLoadingStatus(true));
+      dispatch(assignLoadingStatus(false));
     }
   },
 );
