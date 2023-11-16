@@ -9,9 +9,13 @@ function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
   const [activeCard, setActiveCard] = useState<TOfferPreview | null>(null);
   const offers = useAppSelector((state) => state.offers);
-
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const handleCardHover = (offer: TOfferPreview) => setActiveCard(offer);
   const handleCardLeave = () => setActiveCard(null);
+
+  if (isDataLoading) {
+    return <div>Загружается...</div>;
+  }
 
   return (
     <div className="page page--gray page--main" data-active-card={activeCard}>

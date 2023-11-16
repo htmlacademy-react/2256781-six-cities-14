@@ -8,8 +8,21 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
+import { getAuth, getOffers } from '../../store';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAuth());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getOffers());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<MainPage />} />
