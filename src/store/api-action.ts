@@ -3,7 +3,6 @@ import { OfferId, TAppDispatch, TAuthData, TOffer, TOffersPreview, TReviewData, 
 import { AxiosInstance } from 'axios';
 import { assignFavorites, assignLoadingStatus, assignNearPlaces, assignOffer, assignOffers, assignReviews, assignUser, assignAuthStatus, assignEmptyUser } from '.';
 import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
-import { toast } from 'react-toastify';
 import { dropToken, saveToken } from '../services/token';
 
 function replaceOfferId(originalValue: string, offerId: string): string {
@@ -156,10 +155,6 @@ const postReview = createAsyncThunk<void, TReviewData, {
       dispatch(assignLoadingStatus(true));
       await api.post(route, { rating, comment });
       dispatch(getReviews(offerId));
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.warn(error.message);
-      }
     } finally {
       dispatch(assignLoadingStatus(false));
     }
