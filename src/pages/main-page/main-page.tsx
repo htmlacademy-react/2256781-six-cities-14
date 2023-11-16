@@ -11,6 +11,7 @@ const override: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  height: '100vh',
 };
 
 function MainPage(): JSX.Element {
