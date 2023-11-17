@@ -109,7 +109,7 @@ const postAuth = createAsyncThunk<void, TAuthData, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.Data}/fetchLogin`,
-  async ({ login: email, password }, { dispatch, extra: api }) => {
+  async ({ email, password }, { dispatch, extra: api }) => {
     try {
       dispatch(assignLoadingStatus(true));
       const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
