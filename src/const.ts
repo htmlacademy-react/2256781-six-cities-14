@@ -1,7 +1,5 @@
 import { TCityItems } from './types';
 
-const FAVORITE_QUANTITY = 4;
-
 const MAX_RATING = 5;
 
 const OFFER_GALLERY_QUANTITY = 6;
@@ -178,7 +176,6 @@ enum APIRoute {
 }
 
 export {
-  FAVORITE_QUANTITY,
   MAX_RATING,
   TYPE_CARD,
   RATING_STARS,

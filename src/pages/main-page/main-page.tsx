@@ -6,6 +6,8 @@ import { CSSProperties, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Spinner } from '../../components/spinner/spinner';
 import { getOffersByCity } from '../../utils';
+import cn from 'classnames';
+import { NotFoundPlaces } from '..';
 
 const override: CSSProperties = {
   display: 'flex',
@@ -22,6 +24,7 @@ function MainPage(): JSX.Element {
   const handleCardHover = (offer: TOfferPreview) => setActiveCard(offer);
   const handleCardLeave = () => setActiveCard(null);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isEmptyOffers = !offersToRender.length;
 
   return (
     <div className="page page--gray page--main" data-active-card={activeCard}>
@@ -44,20 +47,29 @@ function MainPage(): JSX.Element {
         )}
         {!isDataLoading && (
           <div className="cities">
-            <div className="cities__places-container container">
-              <OfferBoard
-                cityName={activeCity}
-                offers={offersToRender}
-                onCardHover={handleCardHover}
-                onCardLeave={handleCardLeave}
-              />
-              <div className="cities__right-section">
-                <Map
-                  type={MapType.City}
-                  offers={offersToRender}
-                  activeOffer={activeCard}
-                />
-              </div>
+            <div
+              className={cn('cities__places-container', 'container', {
+                'cities__places-container--empty': isEmptyOffers,
+              })}
+            >
+              {isEmptyOffers && <NotFoundPlaces city={activeCity} />}
+              {!isEmptyOffers && (
+                <>
+                  <OfferBoard
+                    cityName={activeCity}
+                    offers={offersToRender}
+                    onCardHover={handleCardHover}
+                    onCardLeave={handleCardLeave}
+                  />
+                  <div className="cities__right-section">
+                    <Map
+                      type={MapType.City}
+                      offers={offersToRender}
+                      activeOffer={activeCard}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}
