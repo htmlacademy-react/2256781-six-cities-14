@@ -39,6 +39,7 @@ enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/',
+  NotFound = '*',
 }
 
 enum MapType {
@@ -116,6 +117,7 @@ enum NameSpace {
   User = 'USER',
   Data = 'DATA',
   Loading = 'LOADING',
+  App = 'APP',
 }
 
 const MAX_NEAR_PLACES_COUNT = 10;

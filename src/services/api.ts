@@ -2,6 +2,8 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestCo
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
+import { browserHistory } from '../browser-history';
+import { AppRoute } from '../const';
 
 type DetailMessageType = {
   type: string;
@@ -10,8 +12,10 @@ type DetailMessageType = {
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
+  [StatusCodes.BAD_GATEWAY]: true,
+  [StatusCodes.GATEWAY_TIMEOUT]: true,
+  [StatusCodes.INTERNAL_SERVER_ERROR]: true,
+  [StatusCodes.SERVICE_UNAVAILABLE]: true,
 };
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
@@ -44,6 +48,10 @@ const createAPI = (): AxiosInstance => {
         const detailMessage = (error.response.data);
 
         toast.warn(detailMessage.message);
+      } else if (error.response?.status === StatusCodes.NOT_FOUND) {
+        browserHistory.push(AppRoute.NotFound);
+      } else if (error.response?.status === StatusCodes.UNAUTHORIZED) {
+        browserHistory.push(AppRoute.Login);
       }
 
       throw error;

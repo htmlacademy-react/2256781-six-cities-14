@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { HistoryRouter } from './components/history-router/history-router';
+import { browserHistory } from './browser-history';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,12 +16,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
-        <Provider store={store}>
+      <Provider store={store}>
+        <HistoryRouter history={browserHistory}>
           <ToastContainer />
           <App />
-        </Provider>
-      </BrowserRouter>
+        </HistoryRouter>
+      </Provider>
     </HelmetProvider>
   </React.StrictMode>
 );

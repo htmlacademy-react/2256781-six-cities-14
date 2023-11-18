@@ -37,10 +37,13 @@ const getOffers = createAsyncThunk<void, undefined, {
 }>(
   `${NameSpace.Data}/fetchOffers`,
   async (_arg, { dispatch, extra: api }) => {
-    dispatch(assignLoadingStatus(true));
-    const { data } = await api.get<TOffersPreview>(APIRoute.Offers);
-    dispatch(assignLoadingStatus(false));
-    dispatch(assignOffers(data));
+    try {
+      dispatch(assignLoadingStatus(true));
+      const { data } = await api.get<TOffersPreview>(APIRoute.Offers);
+      dispatch(assignOffers(data));
+    } finally {
+      dispatch(assignLoadingStatus(false));
+    }
   },
 );
 
@@ -51,11 +54,14 @@ const getOffer = createAsyncThunk<void, OfferId, {
 }>(
   `${NameSpace.Data}/fetchOffer`,
   async (offerId, { dispatch, extra: api }) => {
-    const route = replaceOfferId(APIRoute.Offer, offerId);
-    dispatch(assignLoadingStatus(true));
-    const { data } = await api.get<TOffer>(route);
-    dispatch(assignLoadingStatus(false));
-    dispatch(assignOffer(data));
+    try {
+      const route = replaceOfferId(APIRoute.Offer, offerId);
+      dispatch(assignLoadingStatus(true));
+      const { data } = await api.get<TOffer>(route);
+      dispatch(assignOffer(data));
+    } finally {
+      dispatch(assignLoadingStatus(false));
+    }
   },
 );
 
@@ -66,11 +72,14 @@ const getNearbyPlaces = createAsyncThunk<void, OfferId, {
 }>(
   `${NameSpace.Data}/fetchNearPlaces`,
   async (offerId, { dispatch, extra: api }) => {
-    const route = replaceOfferId(APIRoute.Nearby, offerId);
-    dispatch(assignLoadingStatus(true));
-    const { data } = await api.get<TOffersPreview>(route);
-    dispatch(assignLoadingStatus(false));
-    dispatch(assignNearPlaces(data));
+    try {
+      const route = replaceOfferId(APIRoute.Nearby, offerId);
+      dispatch(assignLoadingStatus(true));
+      const { data } = await api.get<TOffersPreview>(route);
+      dispatch(assignNearPlaces(data));
+    } finally {
+      dispatch(assignLoadingStatus(false));
+    }
   },
 );
 
@@ -81,11 +90,14 @@ const getReviews = createAsyncThunk<void, OfferId, {
 }>(
   `${NameSpace.Data}/fetchReviews`,
   async (offerId, { dispatch, extra: api }) => {
-    const route = replaceOfferId(APIRoute.Review, offerId);
-    dispatch(assignLoadingStatus(true));
-    const { data } = await api.get<TReviews>(route);
-    dispatch(assignLoadingStatus(false));
-    dispatch(assignReviews(data));
+    try {
+      const route = replaceOfferId(APIRoute.Review, offerId);
+      dispatch(assignLoadingStatus(true));
+      const { data } = await api.get<TReviews>(route);
+      dispatch(assignReviews(data));
+    } finally {
+      dispatch(assignLoadingStatus(false));
+    }
   },
 );
 
@@ -96,10 +108,13 @@ const getOFavorites = createAsyncThunk<void, undefined, {
 }>(
   `${NameSpace.Data}/fetchFavorites`,
   async (_arg, { dispatch, extra: api }) => {
-    dispatch(assignLoadingStatus(true));
-    const { data } = await api.get<TOffersPreview>(APIRoute.Favorite);
-    dispatch(assignLoadingStatus(false));
-    dispatch(assignFavorites(data));
+    try {
+      dispatch(assignLoadingStatus(true));
+      const { data } = await api.get<TOffersPreview>(APIRoute.Favorite);
+      dispatch(assignFavorites(data));
+    } finally {
+      dispatch(assignLoadingStatus(false));
+    }
   },
 );
 
