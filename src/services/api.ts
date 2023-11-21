@@ -2,8 +2,6 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestCo
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
-import { browserHistory } from '../browser-history';
-import { AppRoute } from '../const';
 
 type DetailMessageType = {
   type: string;
@@ -48,10 +46,6 @@ const createAPI = (): AxiosInstance => {
         const detailMessage = (error.response.data);
 
         toast.warn(detailMessage.message);
-      } else if (error.response?.status === StatusCodes.NOT_FOUND) {
-        browserHistory.push(AppRoute.NotFound);
-      } else if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        browserHistory.push(AppRoute.Login);
       }
 
       throw error;
