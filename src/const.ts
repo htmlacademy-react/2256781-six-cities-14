@@ -1,7 +1,5 @@
 import { TCityItems } from './types';
 
-const FAVORITE_QUANTITY = 4;
-
 const MAX_RATING = 5;
 
 const OFFER_GALLERY_QUANTITY = 6;
@@ -41,6 +39,7 @@ enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/',
+  NotFound = '*',
 }
 
 enum MapType {
@@ -118,6 +117,7 @@ enum NameSpace {
   User = 'USER',
   Data = 'DATA',
   Loading = 'LOADING',
+  App = 'APP',
 }
 
 const MAX_NEAR_PLACES_COUNT = 10;
@@ -178,7 +178,6 @@ enum APIRoute {
 }
 
 export {
-  FAVORITE_QUANTITY,
   MAX_RATING,
   TYPE_CARD,
   RATING_STARS,
