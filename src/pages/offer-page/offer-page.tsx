@@ -4,23 +4,36 @@ import { NotFoundPage } from '..';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { assignEmptyOffer, getNearbyPlaces, getOffer } from '../../store';
+import {
+  assignEmptyOffer,
+  getAsyncNearbyPlaces,
+  getAsyncOffer,
+  getAsyncReviews,
+  selectAuthStatus,
+  selectOffer,
+} from '../../store';
+import { AuthorizationStatus } from '../../const';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
   const dispatch = useAppDispatch();
-  const currentOffer = useAppSelector((state) => state.offer);
+  const currentOffer = useAppSelector(selectOffer);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const shouldShowReviews = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (offerId) {
-      dispatch(getOffer(offerId));
-      dispatch(getNearbyPlaces(offerId));
+      dispatch(getAsyncOffer(offerId));
+      dispatch(getAsyncNearbyPlaces(offerId));
+      if (shouldShowReviews) {
+        dispatch(getAsyncReviews(offerId));
+      }
     }
 
     return () => {
       dispatch(assignEmptyOffer());
     };
-  }, [offerId, dispatch]);
+  }, [offerId, shouldShowReviews, dispatch]);
 
   if (!currentOffer) {
     return <NotFoundPage />;

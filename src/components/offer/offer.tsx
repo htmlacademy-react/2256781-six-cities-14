@@ -1,3 +1,8 @@
+import { MarkType, MapType, StarType } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { selectReviews } from '../../store';
+import { TOffer } from '../../types';
+import { getStringSuperscript } from '../../utils/common';
 import {
   GoodList,
   Map,
@@ -6,17 +11,13 @@ import {
   Review,
   StarLine,
 } from '../../components';
-import { MarkType, MapType, StarType } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { TOffer } from '../../types';
-import { getStringSuperscript } from '../../utils/common';
 
 type TOfferProps = {
   offer: TOffer;
 };
 
 function Offer({ offer }: TOfferProps): JSX.Element {
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(selectReviews);
   const {
     isPremium,
     title,

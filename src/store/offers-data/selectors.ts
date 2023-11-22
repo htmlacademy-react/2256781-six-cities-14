@@ -1,0 +1,21 @@
+import { createSelector } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { TState } from '../../types/state';
+import { selectCity, selectSorting } from '..';
+import { getOffersByCity, sorting } from '../../utils';
+
+const selectOffers = (state: TState) => state[NameSpace.Offers].offers;
+
+const selectIsOffersLoading = (state: TState) => state[NameSpace.Offers].isOffersLoading;
+
+const selectOffersMemo = createSelector(
+  [selectCity, selectSorting, selectOffers],
+  (city, activeSorting, offers) => sorting[activeSorting](getOffersByCity(offers, city))
+);
+
+const selectIsEmptyOffersMemo = createSelector(
+  [selectOffers],
+  (offers) => !offers.length
+);
+
+export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffersMemo };

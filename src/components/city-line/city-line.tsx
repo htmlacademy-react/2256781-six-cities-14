@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { assignActiveCity } from '../../store';
+import { assignCity, selectCity } from '../../store';
 
 function CityLine(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(selectCity);
   const dispatch = useAppDispatch();
 
   return (
@@ -22,7 +22,7 @@ function CityLine(): JSX.Element {
                   })}
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(assignActiveCity(item.city));
+                    dispatch(assignCity(item.city));
                   }}
                   to={AppRoute.Main}
                 >

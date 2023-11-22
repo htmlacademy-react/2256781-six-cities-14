@@ -1,5 +1,5 @@
-import { ReviewForm } from '../../components';
 import { TReviews } from '../../types';
+import { ReviewForm } from '../../components';
 import { ReviewItem } from '../../components';
 
 type TReviewProps = {

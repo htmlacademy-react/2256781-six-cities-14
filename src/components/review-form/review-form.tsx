@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { RatingForm } from '../../components';
 import { RATING_STARS } from '../../const';
+import { RatingForm } from '../../components';
 
 function ReviewForm(): JSX.Element {
   const [comment, setComment] = useState<string>('');

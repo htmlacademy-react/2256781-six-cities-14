@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { TAuthData } from '../../types';
 import { useAppDispatch } from '../../hooks';
-import { postAuth } from '../../store';
+import { postAsyncAuth } from '../../store';
 
 const validateEmail = (email: string): boolean =>
   /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
@@ -44,7 +44,7 @@ function LoginForm() {
 
     if (validate(formData)) {
       dispatch(
-        postAuth({
+        postAsyncAuth({
           email: formData.email,
           password: formData.password,
         })

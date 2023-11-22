@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOfferPreview } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
 import { Premium, StarLine } from '..';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 type TCardProps = {
   offer: TOfferPreview;
@@ -38,21 +40,23 @@ function Card({
     <article
       className={cardClassName}
       onMouseEnter={() => onCardHover?.(offer)}
-      onMouseLeave={()=> onCardLeave?.()}
+      onMouseLeave={() => onCardLeave?.()}
     >
-      <Premium isPremium={isPremium} mark={MarkType.Card} />
-
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={path}>
-          <img
+          <LazyLoadImage
             className="place-card__image"
             src={previewImage}
             width={cardWidth}
             height={cardHeight}
             alt={title}
+            effect="blur"
           />
         </Link>
       </div>
+
+      <Premium isPremium={isPremium} mark={MarkType.Card} />
+
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">

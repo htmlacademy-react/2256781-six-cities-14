@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { OfferList, Sorting } from '..';
 import {
   TCityName,
@@ -14,6 +14,8 @@ type TOfferBoardProps = {
   onCardHover?(offer: TOfferPreview): void;
   onCardLeave?(): void;
 };
+
+const OfferListMemo = memo(OfferList);
 
 function OfferBoard({
   offers,
@@ -35,7 +37,7 @@ function OfferBoard({
         {offerCount} places to stay in {cityName}
       </b>
       <Sorting activeSorting={activeSorting} onChange={handleSortingChange} />
-      <OfferList
+      <OfferListMemo
         onCardHover={onCardHover}
         onCardLeave={onCardLeave}
         offers={sorting[activeSorting](offers)}

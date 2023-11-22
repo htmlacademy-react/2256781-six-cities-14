@@ -1,7 +1,7 @@
-import { StarLine } from '..';
 import { COMMENT_DATE, COMMENT_DATE_TIME, StarType } from '../../const';
 import { TReview } from '../../types';
 import { formatDate } from '../../utils/common';
+import { StarLine } from '..';
 
 type TReviewItemProps = {
   review: TReview;
