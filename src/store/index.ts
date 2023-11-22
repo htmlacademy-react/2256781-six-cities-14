@@ -17,7 +17,7 @@ export * from './user-process/user-process.ts';
 export * from './user-process/api-actions.ts';
 export * from './user-process/selectors.ts';
 
-//! словил ошибку ReferenceError: Cannot access 'rootReducer' before initialization.
+//! словил ошибку - ReferenceError: Cannot access 'rootReducer' before initialization
 //* Реэкспорт редьюсера должен быть после всех api-actions.ts и до store.ts
 export * from './root-reducer.ts';
 
