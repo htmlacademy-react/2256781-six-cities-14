@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, TYPE_CARD } from '../../const';
-import { Card } from '../../components';
 import { getOffersByCity } from '../../utils';
-import { TOffersPreview } from '../../types';
+import { useAppSelector } from '../../hooks';
+import { selectCitiesFromFavoritesMemo, selectFavorites } from '../../store';
+import memoize from 'lodash.memoize';
+import { TCityName, TOffersPreview } from '../../types';
+import { Card } from '../../components';
 
-type TFavoriteListProps = {
-  favorites: TOffersPreview;
-};
-
-function FavoriteList({ favorites }: TFavoriteListProps): JSX.Element {
-  const cities = [...new Set(favorites.map((offer) => offer?.city?.name))];
+function FavoriteList(): JSX.Element {
+  const cities = useAppSelector(selectCitiesFromFavoritesMemo);
+  const favorites = useAppSelector(selectFavorites);
+  const getFavoritesByCityMemo = memoize(
+    (offers: TOffersPreview, city: TCityName) => getOffersByCity(offers, city)
+  );
 
   return (
     <ul className="favorites__list">
@@ -23,7 +26,7 @@ function FavoriteList({ favorites }: TFavoriteListProps): JSX.Element {
             </div>
           </div>
           <div className="favorites__places">
-            {getOffersByCity(favorites, city).map((offer) => (
+            {getFavoritesByCityMemo(favorites, city).map((offer) => (
               <Card key={offer.id} offer={offer} type={TYPE_CARD.FAVORITES} />
             ))}
           </div>

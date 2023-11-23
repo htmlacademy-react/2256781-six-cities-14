@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Header, LoginForm } from '../../components';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { Header, LoginForm } from '../../components';
 
 function LoginPage(): JSX.Element {
   return (

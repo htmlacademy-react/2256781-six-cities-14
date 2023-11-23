@@ -1,5 +1,5 @@
-import { Card } from '..';
 import { TOfferPreview, TOffersPreview } from '../../types';
+import { Card } from '..';
 
 type TOfferListProps = {
   offers: TOffersPreview;

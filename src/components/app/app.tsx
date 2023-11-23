@@ -1,6 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../../components';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { getAsyncAuth } from '../../store';
 import {
   MainPage,
   NotFoundPage,
@@ -8,19 +11,12 @@ import {
   FavoritePage,
   OfferPage,
 } from '../../pages';
-import { getAuth, getOffers } from '../../store';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getAuth());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getOffers());
+    dispatch(getAsyncAuth());
   }, [dispatch]);
 
   return (
