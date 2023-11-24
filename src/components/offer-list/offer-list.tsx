@@ -7,11 +7,20 @@ type TOfferListProps = {
   onCardLeave?(): void;
 };
 
-function OfferList({ offers, onCardHover, onCardLeave }: TOfferListProps): JSX.Element {
+function OfferList({
+  offers,
+  onCardHover,
+  onCardLeave,
+}: TOfferListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <Card key={offer.id} offer={offer} onCardHover={onCardHover} onCardLeave={onCardLeave}/>
+        <Card
+          key={offer.id}
+          offer={offer}
+          onCardHover={onCardHover}
+          onCardLeave={onCardLeave}
+        />
       ))}
     </div>
   );

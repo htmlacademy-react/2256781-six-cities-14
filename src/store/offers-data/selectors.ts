@@ -13,9 +13,6 @@ const selectOffersMemo = createSelector(
   (city, activeSorting, offers) => sorting[activeSorting](getOffersByCity(offers, city))
 );
 
-const selectIsEmptyOffersMemo = createSelector(
-  [selectOffers],
-  (offers) => !offers.length
-);
+const selectIsEmptyOffers = (state: TState) => !state[NameSpace.Offers].offers.length;
 
-export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffersMemo };
+export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffers };

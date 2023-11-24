@@ -22,3 +22,4 @@ export * from './premium/premium';
 export * from './review-item/review-item';
 export * from './sorting/sorting';
 export * from './login-form/login-form';
+export * from './bookmark/bookmark';

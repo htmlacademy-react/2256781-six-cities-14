@@ -9,27 +9,42 @@ const TYPE_CARD = {
     className: 'cities__card place-card',
     width: 260,
     height: 200,
-    buttonFavorite: {
+    mark: {
       className: 'place-card__bookmark-button button',
-      span: 'To bookmarks',
+      classNameActive: 'place-card__bookmark-button place-card__bookmark-button--active button',
+      image: {
+        className: 'place-card__bookmark-icon',
+        width: '18',
+        height: '19',
+      }
     }
   },
   FAVORITES: {
     className: 'favorites__card place-card',
     width: 150,
     height: 110,
-    buttonFavorite: {
-      className: 'place-card__bookmark-button place-card__bookmark-button--active button',
-      span: 'In bookmarks',
+    mark: {
+      className: 'place-card__bookmark-button button',
+      classNameActive: 'place-card__bookmark-button place-card__bookmark-button--active button',
+      image: {
+        className: 'place-card__bookmark-icon',
+        width: '31',
+        height: '33',
+      }
     }
   },
   NEAR: {
     className: 'near-places__card place-card',
     width: 260,
     height: 200,
-    buttonFavorite: {
-      className: 'place-card__bookmark-button place-card__bookmark-button--active button',
-      span: 'In bookmarks',
+    mark: {
+      className: 'place-card__bookmark-button button',
+      classNameActive: 'place-card__bookmark-button place-card__bookmark-button--active button',
+      image: {
+        className: 'place-card__bookmark-icon',
+        width: '18',
+        height: '19',
+      }
     }
   },
 } as const;

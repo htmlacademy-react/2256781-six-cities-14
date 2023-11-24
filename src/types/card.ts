@@ -1,13 +1,18 @@
-type TButtonFavorite = {
+type TMark = {
   className: string;
-  span: string;
+  classNameActive: string;
+  image: {
+    className: string;
+    width: string;
+    height: string;
+  };
 }
 
 type TCustomizationCard = {
   className: string;
   width: number;
   height: number;
-  buttonFavorite: TButtonFavorite;
+  mark: TMark;
 }
 
 export { type TCustomizationCard };

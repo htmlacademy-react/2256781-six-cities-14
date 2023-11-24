@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { replaceOfferId } from '../../utils';
+import { replaceURI } from '../../utils';
 import { TThunkApiConfig } from '../../types/thunk';
 import { TOffer, TOfferId, TOffersPreview, TReview, TReviewData, TReviews } from '../../types';
 import { APIRoute, NameSpace } from '../../const';
@@ -8,7 +8,7 @@ const getAsyncOffer = createAsyncThunk<TOffer, TOfferId, TThunkApiConfig>(
   `${NameSpace.Data}/fetchOffer`,
   async (offerId, { extra: api }) => {
     try {
-      const route = replaceOfferId(APIRoute.Offer, offerId);
+      const route = replaceURI(APIRoute.Offer, offerId);
       const { data } = await api.get<TOffer>(route);
 
       return data;
@@ -22,7 +22,7 @@ const getAsyncNearbyPlaces = createAsyncThunk<TOffersPreview, TOfferId, TThunkAp
   `${NameSpace.Data}/fetchNearPlaces`,
   async (offerId, { extra: api }) => {
     try {
-      const route = replaceOfferId(APIRoute.Nearby, offerId);
+      const route = replaceURI(APIRoute.Nearby, offerId);
       const { data } = await api.get<TOffersPreview>(route);
 
       return data;
@@ -36,7 +36,7 @@ const getAsyncReviews = createAsyncThunk<TReviews, TOfferId, TThunkApiConfig>(
   `${NameSpace.Data}/fetchReviews`,
   async (offerId, { extra: api }) => {
     try {
-      const route = replaceOfferId(APIRoute.Review, offerId);
+      const route = replaceURI(APIRoute.Review, offerId);
       const { data } = await api.get<TReviews>(route);
 
       return data;
@@ -50,7 +50,7 @@ const postAsyncReview = createAsyncThunk<TReview, TReviewData, TThunkApiConfig>(
   `${NameSpace.Data}/fetchReview`,
   async ({ id: offerId, rating, comment }, { extra: api }) => {
     try {
-      const route = replaceOfferId(APIRoute.Review, offerId);
+      const route = replaceURI(APIRoute.Review, offerId);
       const { data } = await api.post<TReview>(route, { rating, comment });
 
       return data;

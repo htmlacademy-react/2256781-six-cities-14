@@ -8,3 +8,4 @@ export * from './sort';
 export * from './token';
 export * from './user';
 export * from './auth';
+export * from './favorite';

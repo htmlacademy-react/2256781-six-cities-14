@@ -10,7 +10,7 @@ import { NotFoundPlaces } from '..';
 import {
   getAsyncOffers,
   selectCity,
-  selectIsEmptyOffersMemo,
+  selectIsEmptyOffers,
   selectIsOffersLoading,
   selectOffersMemo,
 } from '../../store';
@@ -30,7 +30,7 @@ function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<TOfferPreview | null>(null);
   const offersToRender = useAppSelector(selectOffersMemo);
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
-  const isEmptyOffers = useAppSelector(selectIsEmptyOffersMemo);
+  const isEmptyOffers = useAppSelector(selectIsEmptyOffers);
   const activeCity = useAppSelector(selectCity);
   const dispatch = useAppDispatch();
   const handleCardHover = useCallback(
