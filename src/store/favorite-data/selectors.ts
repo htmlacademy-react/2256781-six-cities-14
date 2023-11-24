@@ -16,4 +16,6 @@ const selectCitiesFromFavoritesMemo = createSelector(
   (favorites) => [...new Set(favorites.map((offer) => offer.city.name))]
 );
 
-export { selectFavorites, selectFavoritesCount, selectIsDataFavoritesOk, selectCitiesFromFavoritesMemo };
+const selectIsEmptyFavorites = (state: TState) => !state[NameSpace.Favorite].favorites.length;
+
+export { selectFavorites, selectFavoritesCount, selectIsDataFavoritesOk, selectCitiesFromFavoritesMemo, selectIsEmptyFavorites };
