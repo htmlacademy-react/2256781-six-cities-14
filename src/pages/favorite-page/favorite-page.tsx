@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Favorite, FavoriteEmpty, Header } from '../../components';
 import { Footer } from '../../components';
-import { useSelector } from 'react-redux';
 import { selectIsEmptyFavorites } from '../../store';
+import { useAppSelector } from '../../hooks';
 
 function FavoritePage(): JSX.Element {
-  const isFavoritesEmpty = useSelector(selectIsEmptyFavorites);
+  const isFavoritesEmpty = useAppSelector(selectIsEmptyFavorites);
 
   return (
     <div className="page page--favorites-empty">

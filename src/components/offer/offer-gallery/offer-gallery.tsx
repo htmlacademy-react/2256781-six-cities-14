@@ -1,6 +1,6 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { OFFER_GALLERY_QUANTITY } from '../../const';
-import { TOffer } from '../../types';
+import { OFFER_GALLERY_QUANTITY } from '../../../const';
+import { TOffer } from '../../../types';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 type TOfferGalleryProps = {

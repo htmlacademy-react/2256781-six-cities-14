@@ -28,8 +28,8 @@ const TYPE_CARD = {
       classNameActive: 'place-card__bookmark-button place-card__bookmark-button--active button',
       image: {
         className: 'place-card__bookmark-icon',
-        width: '31',
-        height: '33',
+        width: '18',
+        height: '19',
       }
     }
   },
