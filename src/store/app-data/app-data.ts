@@ -28,7 +28,6 @@ const appData = createSlice({
     assignSorting: (state, action: PayloadAction<TSorting>) => {
       state.sorting = action.payload;
     },
-    redirectToRoute: () => { },
   }
 });
 

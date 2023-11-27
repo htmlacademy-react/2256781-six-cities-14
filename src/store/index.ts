@@ -1,3 +1,4 @@
+export * from './service-actions.ts';
 export * from './app-data/app-data.ts';
 export * from './app-data/selectors.ts';
 
