@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOfferPreview } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
 import { Bookmark, Premium, StarLine } from '..';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postAsyncFavorite, selectIsAuthStatus } from '../../store';
+import { useFavoritesMark } from '../../hooks';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -43,18 +41,12 @@ function Card({
     image: markImage,
   } = mark;
   const { className: markImageClassName } = markImage;
-  const path = `${AppRoute.Offer}${id}`;
-  const isAuth = useAppSelector(selectIsAuthStatus);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const hiddenBookmarkDescription = isFavorite
+    ? 'In bookmarks'
+    : 'To bookmarks';
 
-  const handleFavoriteChange = () => {
-    if (isAuth) {
-      dispatch(postAsyncFavorite({ offerId: id, status: Number(!isFavorite) }));
-    } else {
-      navigate(AppRoute.Login);
-    }
-  };
+  const path = `${AppRoute.Offer}${id}`;
+  const handleFavoriteChange = useFavoritesMark(id, isFavorite);
 
   return (
     <article
@@ -85,8 +77,8 @@ function Card({
           </div>
           <Bookmark
             actionClass={isFavorite ? markClassNameActive : markClassName}
-            enabled={isFavorite}
             imageClass={markImageClassName}
+            hiddenDescription={hiddenBookmarkDescription}
             onMarkChange={handleFavoriteChange}
           />
         </div>

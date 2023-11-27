@@ -6,11 +6,11 @@ import { getAsyncFavorites, postAsyncFavorite } from '..';
 type TFavoritesData = {
   favorites: TOffersPreview;
   favoritesStatus: {
-    status: boolean | null;
+    status: boolean;
     message: string;
   };
   markStatus: {
-    status: boolean | null;
+    status: boolean;
     message: string;
   };
 };
@@ -18,11 +18,11 @@ type TFavoritesData = {
 const initialState: TFavoritesData = {
   favorites: [],
   favoritesStatus: {
-    status: null,
+    status: false,
     message: '',
   },
   markStatus: {
-    status: null,
+    status: false,
     message: '',
   },
 };
@@ -34,7 +34,6 @@ const favoriteData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAsyncFavorites.pending, (state) => {
-        state.favoritesStatus.status = null;
         state.favoritesStatus.message = 'pending';
       })
       .addCase(getAsyncFavorites.fulfilled, (state, action) => {
@@ -43,11 +42,9 @@ const favoriteData = createSlice({
         state.favorites = action.payload;
       })
       .addCase(getAsyncFavorites.rejected, (state) => {
-        state.favoritesStatus.status = false;
         state.favoritesStatus.message = 'Unknown error';
       })
       .addCase(postAsyncFavorite.pending, (state) => {
-        state.markStatus.status = null;
         state.markStatus.message = 'pending';
       })
       .addCase(postAsyncFavorite.fulfilled, (state, action) => {

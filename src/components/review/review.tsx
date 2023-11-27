@@ -3,15 +3,18 @@ import { ReviewForm } from '../../components';
 import { ReviewItem } from '../../components';
 
 type TReviewProps = {
-  reviews: TReviews | undefined;
+  reviews: TReviews;
 };
 
 function Review({ reviews }: TReviewProps): JSX.Element {
-  const countReview = reviews?.length;
+  const countReview = reviews.length;
+  const isEmptyReviews = !reviews.length;
 
   return (
     <section className="offer__reviews reviews">
-      {countReview && (
+      {isEmptyReviews && <ReviewForm />}
+
+      {!isEmptyReviews && (
         <>
           <h2 className="reviews__title">
             Reviews &middot;{' '}
@@ -23,10 +26,9 @@ function Review({ reviews }: TReviewProps): JSX.Element {
               <ReviewItem key={review.id} review={review} />
             ))}
           </ul>
+          <ReviewForm />
         </>
       )}
-
-      <ReviewForm />
     </section>
   );
 }
