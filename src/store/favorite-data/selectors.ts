@@ -8,12 +8,14 @@ const selectFavorites = (state: TState): TOffersPreview =>
 const selectFavoritesCount = (state: TState): number =>
   state[NameSpace.Favorite].favorites.length;
 
-const selectIsOk = (state: TState): boolean | null =>
-  state[NameSpace.Favorite].isOk;
+const selectIsDataFavoritesOk = (state: TState): boolean | null =>
+  state[NameSpace.Favorite].favoritesStatus.status;
 
 const selectCitiesFromFavoritesMemo = createSelector(
   [selectFavorites],
   (favorites) => [...new Set(favorites.map((offer) => offer.city.name))]
 );
 
-export { selectFavorites, selectFavoritesCount, selectIsOk, selectCitiesFromFavoritesMemo };
+const selectIsEmptyFavorites = (state: TState) => !state[NameSpace.Favorite].favorites.length;
+
+export { selectFavorites, selectFavoritesCount, selectIsDataFavoritesOk, selectCitiesFromFavoritesMemo, selectIsEmptyFavorites };

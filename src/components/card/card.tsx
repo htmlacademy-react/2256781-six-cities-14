@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOfferPreview } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
-import { Premium, StarLine } from '..';
+import { Bookmark, Premium, StarLine } from '..';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postAsyncFavorite, selectIsAuthStatus } from '../../store';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -26,15 +29,32 @@ function Card({
     rating,
     title,
     type: offerType,
+    isFavorite,
   } = offer;
   const {
     className: cardClassName,
     width: cardWidth,
     height: cardHeight,
-    buttonFavorite,
+    mark,
   } = type;
-  const { className: btnFavClassName, span: btnFavSpan } = buttonFavorite;
+  const {
+    className: markClassName,
+    classNameActive: markClassNameActive,
+    image: markImage,
+  } = mark;
+  const { className: markImageClassName } = markImage;
   const path = `${AppRoute.Offer}${id}`;
+  const isAuth = useAppSelector(selectIsAuthStatus);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleFavoriteChange = () => {
+    if (isAuth) {
+      dispatch(postAsyncFavorite({ offerId: id, status: Number(!isFavorite) }));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
 
   return (
     <article
@@ -63,12 +83,12 @@ function Card({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={btnFavClassName} type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">{btnFavSpan}</span>
-          </button>
+          <Bookmark
+            actionClass={isFavorite ? markClassNameActive : markClassName}
+            enabled={isFavorite}
+            imageClass={markImageClassName}
+            onMarkChange={handleFavoriteChange}
+          />
         </div>
 
         <StarLine rating={rating} />

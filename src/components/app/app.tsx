@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../../components';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getAsyncAuth } from '../../store';
+import { getAsyncAuth, getAsyncFavorites, getAsyncOffers } from '../../store';
 import {
   MainPage,
   NotFoundPage,
@@ -17,6 +17,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getAsyncAuth());
+    dispatch(getAsyncOffers());
+    dispatch(getAsyncFavorites());
   }, [dispatch]);
 
   return (

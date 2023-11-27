@@ -1,12 +1,12 @@
 import { memo, useState } from 'react';
-import { OfferList, Sorting } from '..';
+import { OfferList, Sorting } from '../..';
 import {
   TCityName,
   TOfferPreview,
   TOffersPreview,
   TSorting,
-} from '../../types';
-import { sorting } from '../../utils';
+} from '../../../types';
+import { sorting } from '../../../utils';
 
 type TOfferBoardProps = {
   offers: TOffersPreview;

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { TOffersPreview } from '../../types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { TOfferPreview, TOffersPreview } from '../../types';
 import { NameSpace } from '../../const';
 import { getAsyncOffers } from '..';
 
@@ -16,7 +16,15 @@ const initialState: TOffersData = {
 const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffers: (state, action: PayloadAction<TOfferPreview>) => {
+      state.offers.find((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
+      });
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getAsyncOffers.pending, (state) => {
@@ -32,4 +40,6 @@ const offersData = createSlice({
   }
 });
 
-export { offersData };
+const { updateOffers } = offersData.actions;
+
+export { offersData, updateOffers };

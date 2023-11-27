@@ -2,15 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import { Header, CityLine, Map, OfferBoard } from '../../components';
 import { MapType } from '../../const';
 import { TOfferPreview } from '../../types';
-import { CSSProperties, memo, useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { CSSProperties, memo, useCallback, useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import { Spinner } from '../../components/spinner/spinner';
 import cn from 'classnames';
 import { NotFoundPlaces } from '..';
 import {
-  getAsyncOffers,
   selectCity,
-  selectIsEmptyOffersMemo,
+  selectIsEmptyOffers,
   selectIsOffersLoading,
   selectOffersMemo,
 } from '../../store';
@@ -30,20 +29,13 @@ function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<TOfferPreview | null>(null);
   const offersToRender = useAppSelector(selectOffersMemo);
   const isOffersLoading = useAppSelector(selectIsOffersLoading);
-  const isEmptyOffers = useAppSelector(selectIsEmptyOffersMemo);
+  const isEmptyOffers = useAppSelector(selectIsEmptyOffers);
   const activeCity = useAppSelector(selectCity);
-  const dispatch = useAppDispatch();
   const handleCardHover = useCallback(
     (offer: TOfferPreview) => setActiveCard(offer),
     []
   );
   const handleCardLeave = useCallback(() => setActiveCard(null), []);
-
-  useEffect(() => {
-    if (isEmptyOffers) {
-      dispatch(getAsyncOffers());
-    }
-  }, [dispatch, offersToRender, isEmptyOffers]);
 
   return (
     <div className="page page--gray page--main" data-active-card={activeCard}>
@@ -62,7 +54,6 @@ function MainPage(): JSX.Element {
             height={200}
             cssOverride={override}
             margin={10}
-            speedMultiplier={2}
           />
         )}
         {!isOffersLoading && (

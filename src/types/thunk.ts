@@ -5,6 +5,7 @@ type TThunkApiConfig = {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
+  rejectValue: Error;
 };
 
 export { type TThunkApiConfig };

@@ -1,24 +1,22 @@
 import { Helmet } from 'react-helmet-async';
-import { FavoriteList, Header } from '../../components';
+import { Favorite, FavoriteEmpty, Header } from '../../components';
 import { Footer } from '../../components';
+import { selectIsEmptyFavorites } from '../../store';
+import { useAppSelector } from '../../hooks';
 
 function FavoritePage(): JSX.Element {
+  const isFavoritesEmpty = useAppSelector(selectIsEmptyFavorites);
+
   return (
-    <div className="page">
+    <div className="page page--favorites-empty">
       <Helmet>
         <title>6 Cities - Favorite page</title>
       </Helmet>
 
       <Header />
 
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <FavoriteList />
-          </section>
-        </div>
-      </main>
+      {!isFavoritesEmpty && <Favorite />}
+      {isFavoritesEmpty && <FavoriteEmpty />}
 
       <Footer />
     </div>
