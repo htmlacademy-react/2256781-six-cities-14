@@ -12,10 +12,13 @@ import {
   Review,
   StarLine,
 } from '../../components';
+import { memo, useCallback } from 'react';
 
 type TOfferProps = {
   offer: TOffer;
 };
+
+const BookmarkMemo = memo(Bookmark);
 
 function Offer({ offer }: TOfferProps): JSX.Element {
   const reviews = useAppSelector(selectReviews);
@@ -46,9 +49,10 @@ function Offer({ offer }: TOfferProps): JSX.Element {
     ? 'In bookmarks'
     : 'To bookmarks';
 
-  const handleFavoriteChange = () => {
+  const handleFavoriteChange = useCallback(() => {
     changeFavoritesMark();
-  };
+  }, [changeFavoritesMark]);
+
 
   return (
     <section className="offer">
@@ -61,7 +65,7 @@ function Offer({ offer }: TOfferProps): JSX.Element {
 
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{title}</h1>
-            <Bookmark
+            <BookmarkMemo
               actionClass={
                 isFavorite ? markedFlagClassName : unmarkedFlagClassName
               }

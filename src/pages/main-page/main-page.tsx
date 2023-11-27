@@ -22,8 +22,6 @@ const override: CSSProperties = {
 };
 
 const OfferBoardMemo = memo(OfferBoard);
-const CityLineMemo = memo(CityLine);
-const HeaderMemo = memo(Header);
 
 function MainPage(): JSX.Element {
   const [activeCard, setActiveCard] = useState<TOfferPreview | null>(null);
@@ -43,10 +41,10 @@ function MainPage(): JSX.Element {
         <title>6 Cities - Main page</title>
       </Helmet>
 
-      <HeaderMemo />
+      <Header />
 
       <main className="page__main page__main--index">
-        <CityLineMemo />
+        <CityLine />
         {isOffersLoading && (
           <Spinner
             color="#4481c3"
