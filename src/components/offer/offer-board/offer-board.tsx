@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { OfferList, Sorting } from '../..';
 import {
   TCityName,
@@ -16,6 +16,7 @@ type TOfferBoardProps = {
 };
 
 const OfferListMemo = memo(OfferList);
+const SortingMemo = memo(Sorting);
 
 function OfferBoard({
   offers,
@@ -26,9 +27,9 @@ function OfferBoard({
   const [activeSorting, setActiveSorting] = useState<TSorting>('POPULAR');
   const offerCount = offers.length;
 
-  function handleSortingChange(type: TSorting) {
+  const handleSortingChange = useCallback((type: TSorting) => {
     setActiveSorting(type);
-  }
+  }, []);
 
   return (
     <section className="cities__places places">
@@ -36,7 +37,10 @@ function OfferBoard({
       <b className="places__found">
         {offerCount} places to stay in {cityName}
       </b>
-      <Sorting activeSorting={activeSorting} onChange={handleSortingChange} />
+      <SortingMemo
+        activeSorting={activeSorting}
+        onChange={handleSortingChange}
+      />
       <OfferListMemo
         onCardHover={onCardHover}
         onCardLeave={onCardLeave}

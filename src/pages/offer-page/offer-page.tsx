@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { Header, Nearby, Offer } from '../../components';
-import { NotFoundPage } from '..';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { CSSProperties, useEffect } from 'react';
 import {
   assignEmptyOffer,
   getAsyncNearbyPlaces,
@@ -13,6 +12,14 @@ import {
   selectOffer,
 } from '../../store';
 import { AuthorizationStatus } from '../../const';
+import { Spinner } from '../../components/spinner/spinner';
+
+const override: CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+};
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -36,7 +43,15 @@ function OfferPage(): JSX.Element {
   }, [offerId, shouldShowReviews, dispatch]);
 
   if (!currentOffer) {
-    return <NotFoundPage />;
+    return (
+      <Spinner
+        color="#4481c3"
+        width={10}
+        height={200}
+        cssOverride={override}
+        margin={10}
+      />
+    );
   }
 
   const { title, id } = currentOffer;

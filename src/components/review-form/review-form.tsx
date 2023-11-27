@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { RATING_STARS } from '../../const';
 import { RatingForm } from '../../components';
+
+const RatingFormMemo = memo(RatingForm);
 
 function ReviewForm(): JSX.Element {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number | null>(null);
 
-  function handleTextAreaChange(evt: React.ChangeEvent<HTMLTextAreaElement>) {
+  const handleTextAreaChange = (
+    evt: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setComment(evt.target.value);
-  }
+  };
 
-  function handleRatingFormChange(count: number) {
+  const handleRatingFormChange = useCallback((count: number) => {
     setRating(count);
-  }
+  }, []);
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -20,7 +24,7 @@ function ReviewForm(): JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating" data-rating={rating}>
-        <RatingForm
+        <RatingFormMemo
           ratings={RATING_STARS}
           onRatingChange={handleRatingFormChange}
         />

@@ -1,18 +1,18 @@
 type TBookmarkProps = {
-  enabled: boolean;
   actionClass: string;
   imageClass: string;
   imageWidth?: string;
   imageHeight?: string;
+  hiddenDescription: string;
   onMarkChange?: () => void;
 };
 
 function Bookmark({
-  enabled,
   actionClass,
   imageClass,
   imageWidth = '18',
   imageHeight = '19',
+  hiddenDescription,
   onMarkChange = () => {},
 }: TBookmarkProps): JSX.Element {
   return (
@@ -24,9 +24,7 @@ function Bookmark({
       <svg className={imageClass} width={imageWidth} height={imageHeight}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">
-        {enabled ? 'In bookmarks' : 'To bookmarks'}
-      </span>
+      <span className="visually-hidden">{hiddenDescription}</span>
     </button>
   );
 }

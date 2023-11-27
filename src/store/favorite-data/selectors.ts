@@ -18,4 +18,6 @@ const selectCitiesFromFavoritesMemo = createSelector(
 
 const selectIsEmptyFavorites = (state: TState) => !state[NameSpace.Favorite].favorites.length;
 
-export { selectFavorites, selectFavoritesCount, selectIsDataFavoritesOk, selectCitiesFromFavoritesMemo, selectIsEmptyFavorites };
+const selectIsChangedMarkCorrectly = (state: TState) => state[NameSpace.Favorite].markStatus.status;
+
+export { selectFavorites, selectFavoritesCount, selectIsDataFavoritesOk, selectCitiesFromFavoritesMemo, selectIsEmptyFavorites, selectIsChangedMarkCorrectly };

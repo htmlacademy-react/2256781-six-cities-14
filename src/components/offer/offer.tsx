@@ -1,9 +1,10 @@
 import { MarkType, MapType, StarType } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useFavoritesMark } from '../../hooks';
 import { selectReviews } from '../../store';
 import { TOffer } from '../../types';
 import { getStringSuperscript } from '../../utils/common';
 import {
+  Bookmark,
   GoodList,
   Map,
   OfferGallery,
@@ -11,14 +12,18 @@ import {
   Review,
   StarLine,
 } from '../../components';
+import { memo, useCallback } from 'react';
 
 type TOfferProps = {
   offer: TOffer;
 };
 
+const BookmarkMemo = memo(Bookmark);
+
 function Offer({ offer }: TOfferProps): JSX.Element {
   const reviews = useAppSelector(selectReviews);
   const {
+    id,
     isPremium,
     title,
     type,
@@ -29,8 +34,25 @@ function Offer({ offer }: TOfferProps): JSX.Element {
     host,
     description,
     rating,
+    isFavorite,
   } = offer;
+  const changeFavoritesMark = useFavoritesMark(id, isFavorite);
   const { avatarUrl, name, isPro } = host;
+  const markedFlagClassName =
+    'offer__bookmark-button offer__bookmark-button--active button';
+  const unmarkedFlagClassName =
+    'offer__bookmark-button offer__bookmark-button button ';
+  const imageBookmarkClassName = 'offer__bookmark-icon';
+  const widthImageBookmark = '31';
+  const heightImageBookmark = '33';
+  const hiddenBookmarkDescription = isFavorite
+    ? 'In bookmarks'
+    : 'To bookmarks';
+
+  const handleFavoriteChange = useCallback(() => {
+    changeFavoritesMark();
+  }, [changeFavoritesMark]);
+
 
   return (
     <section className="offer">
@@ -43,12 +65,16 @@ function Offer({ offer }: TOfferProps): JSX.Element {
 
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{title}</h1>
-            <button className="offer__bookmark-button button" type="button">
-              <svg className="offer__bookmark-icon" width={31} height={33}>
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkMemo
+              actionClass={
+                isFavorite ? markedFlagClassName : unmarkedFlagClassName
+              }
+              imageClass={imageBookmarkClassName}
+              imageWidth={widthImageBookmark}
+              imageHeight={heightImageBookmark}
+              hiddenDescription={hiddenBookmarkDescription}
+              onMarkChange={handleFavoriteChange}
+            />
           </div>
 
           <StarLine rating={rating} type={StarType.Offer} />
