@@ -1,12 +1,10 @@
-import { TOfferId } from '../../types';
-
 type TBookmarkProps = {
   actionClass: string;
   imageClass: string;
   imageWidth?: string;
   imageHeight?: string;
   hiddenDescription: string;
-  onMarkChange?: (id: TOfferId, status: boolean) => void;
+  onMarkChange?: () => void;
 };
 
 function Bookmark({
