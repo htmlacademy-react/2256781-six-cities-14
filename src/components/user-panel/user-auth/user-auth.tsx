@@ -25,9 +25,15 @@ function UserAuth({ onSignOut, quantityFavorite, userData }: TUserAuthProps) {
           </Link>
         </li>
         <li className="header__nav-item">
-          <Link className="header__nav-link" to={AppRoute.Main} onClick={onSignOut}>
+          <a
+            className="header__nav-link"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onSignOut();
+            }}
+          >
             <span className="header__signout">Sign out</span>
-          </Link>
+          </a>
         </li>
       </ul>
     </nav>
