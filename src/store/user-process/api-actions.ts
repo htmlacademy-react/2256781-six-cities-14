@@ -24,7 +24,6 @@ const postAsyncAuth = createAsyncThunk<TUserData, TAuthData, TThunkApiConfig>(
     try {
       const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
       saveToken(data.token);
-
       return data;
     } catch (error) {
       throw new Error();

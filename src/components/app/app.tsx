@@ -1,9 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute, ScrollToTop } from '../../components';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { getAsyncAuth, getAsyncFavorites, getAsyncOffers } from '../../store';
+import { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  getAsyncAuth,
+  getAsyncFavorites,
+  getAsyncOffers,
+  selectAuthStatus,
+} from '../../store';
 import {
   MainPage,
   NotFoundPage,
@@ -16,12 +21,24 @@ import { browserHistory } from '../../browser-history';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(selectAuthStatus);
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    dispatch(getAsyncAuth());
+    if (isMounted.current) {
+      dispatch(getAsyncAuth());
+    }
+
     dispatch(getAsyncOffers());
-    dispatch(getAsyncFavorites());
-  }, [dispatch]);
+
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(getAsyncFavorites());
+    }
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, [dispatch, authStatus]);
 
   return (
     <HistoryRouter history={browserHistory}>
