@@ -9,9 +9,10 @@ import {
   getAsyncOffer,
   getAsyncReviews,
   selectAuthStatus,
+  selectNearbyPlaces,
   selectOffer,
 } from '../../store';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT } from '../../const';
 import { Spinner } from '../../components/spinner/spinner';
 
 const override: CSSProperties = {
@@ -26,6 +27,10 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentOffer = useAppSelector(selectOffer);
   const authStatus = useAppSelector(selectAuthStatus);
+  const nearbyPlaces = useAppSelector(selectNearbyPlaces)?.slice(
+    0,
+    MAX_NEAR_PLACES_COUNT
+  );
   const shouldShowReviews = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
@@ -65,9 +70,13 @@ function OfferPage(): JSX.Element {
       <Header />
 
       <main className="page__main page__main--offer">
-        <Offer offer={currentOffer} />
+        <Offer
+          nearbyPlaces={nearbyPlaces}
+          offer={currentOffer}
+          authStatus={authStatus}
+        />
         <div className="container">
-          <Nearby />
+          <Nearby offers={nearbyPlaces} />
         </div>
       </main>
     </div>

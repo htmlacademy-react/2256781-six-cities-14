@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { TReview, TReviews } from '../../types/review';
+import { TReviews } from '../../types/review';
 import { TOffer, TOfferPreview, TOffersPreview } from '../../types';
 import { getAsyncNearbyPlaces, getAsyncOffer, getAsyncReviews, postAsyncReview } from '..';
 
@@ -9,7 +9,6 @@ type TOfferData = {
   offer: TOffer | null;
   nearbyPlaces: TOffersPreview;
   reviews: TReviews;
-  review: TReview | null;
 };
 
 const initialState: TOfferData = {
@@ -17,7 +16,6 @@ const initialState: TOfferData = {
   offer: null,
   nearbyPlaces: [],
   reviews: [],
-  review: null,
 };
 
 const offerData = createSlice({
@@ -32,6 +30,13 @@ const offerData = createSlice({
       if (state.offer !== null) {
         state.offer.isFavorite = action.payload.isFavorite;
       }
+    },
+    updateNearbyPlaces: (state, action: PayloadAction<TOfferPreview>) => {
+      state.nearbyPlaces.find((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
+      });
     },
   },
   extraReducers(builder) {
@@ -53,11 +58,11 @@ const offerData = createSlice({
         state.reviews = action.payload;
       })
       .addCase(postAsyncReview.fulfilled, (state, action) => {
-        state.review = action.payload;
+        state.reviews.push(action.payload);
       });
   }
 });
 
-const { assignEmptyOffer, updateOffer } = offerData.actions;
+const { assignEmptyOffer, updateOffer, updateNearbyPlaces } = offerData.actions;
 
-export { offerData, assignEmptyOffer, updateOffer };
+export { offerData, assignEmptyOffer, updateOffer, updateNearbyPlaces };

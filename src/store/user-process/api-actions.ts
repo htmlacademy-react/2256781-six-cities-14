@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TThunkApiConfig } from '../../types/thunk';
-import { APIRoute, NameSpace } from '../../const';
+import { APIRoute, AppRoute, NameSpace } from '../../const';
 import { TAuthData, TUserData } from '../../types';
 import { dropToken, saveToken } from '../../services/token';
+import { redirectToRoute } from '..';
 
 const getAsyncAuth = createAsyncThunk<TUserData, undefined, TThunkApiConfig>(
   `${NameSpace.Data}/fetchAuthStatus`,
@@ -23,7 +24,6 @@ const postAsyncAuth = createAsyncThunk<TUserData, TAuthData, TThunkApiConfig>(
     try {
       const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
       saveToken(data.token);
-
       return data;
     } catch (error) {
       throw new Error();
@@ -33,8 +33,9 @@ const postAsyncAuth = createAsyncThunk<TUserData, TAuthData, TThunkApiConfig>(
 
 const deleteAsyncAuth = createAsyncThunk<void, undefined, TThunkApiConfig>(
   `${NameSpace.Data}/fetchLogout`,
-  async (_arg, { extra: api }) => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
+      dispatch(redirectToRoute(AppRoute.Main));
       await api.delete(APIRoute.Logout);
       dropToken();
     } catch (error) {

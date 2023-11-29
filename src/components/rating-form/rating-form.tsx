@@ -2,11 +2,13 @@ import React from 'react';
 import { RATING_STARS } from '../../const';
 
 type TRatingFormProps = {
+  rating?: number;
   ratings: typeof RATING_STARS;
   onRatingChange: (rating: number) => void;
 };
 
 function RatingForm({
+  rating = 0,
   ratings,
   onRatingChange,
 }: TRatingFormProps): JSX.Element {
@@ -16,7 +18,7 @@ function RatingForm({
 
   function getRatingForm() {
     return ratings
-      .map((rating, index) => ({ rating, count: ++index }))
+      .map((score, index) => ({ score, count: ++index }))
       .toReversed()
       .map((item) => (
         <React.Fragment key={item.count}>
@@ -27,11 +29,12 @@ function RatingForm({
             id={`${item.count}-stars`}
             type="radio"
             onChange={() => handleInputChange(item.count)}
+            checked={item.count === rating}
           />
           <label
             htmlFor={`${item.count}-stars`}
             className="reviews__rating-label form__rating-label"
-            title={item.rating}
+            title={item.score}
           >
             <svg className="form__star-image" width={37} height={33}>
               <use xlinkHref="#icon-star"></use>

@@ -1,7 +1,7 @@
-import { MarkType, MapType, StarType } from '../../const';
+import { MarkType, MapType, StarType, AuthorizationStatus } from '../../const';
 import { useAppSelector, useFavoritesMark } from '../../hooks';
 import { selectReviews } from '../../store';
-import { TOffer } from '../../types';
+import { TOffer, TOffersPreview } from '../../types';
 import { getStringSuperscript } from '../../utils/common';
 import {
   Bookmark,
@@ -16,11 +16,13 @@ import { memo, useCallback } from 'react';
 
 type TOfferProps = {
   offer: TOffer;
+  authStatus: AuthorizationStatus;
+  nearbyPlaces: TOffersPreview;
 };
 
 const BookmarkMemo = memo(Bookmark);
 
-function Offer({ offer }: TOfferProps): JSX.Element {
+function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
   const reviews = useAppSelector(selectReviews);
   const {
     id,
@@ -52,7 +54,6 @@ function Offer({ offer }: TOfferProps): JSX.Element {
   const handleFavoriteChange = useCallback(() => {
     changeFavoritesMark();
   }, [changeFavoritesMark]);
-
 
   return (
     <section className="offer">
@@ -118,11 +119,11 @@ function Offer({ offer }: TOfferProps): JSX.Element {
             </div>
           </div>
 
-          <Review reviews={reviews} />
+          <Review offerId={id} reviews={reviews} authStatus={authStatus} />
         </div>
       </div>
 
-      <Map type={MapType.Offer} activeOffer={offer} />
+      <Map type={MapType.Offer} activeOffer={offer} offers={nearbyPlaces} />
     </section>
   );
 }

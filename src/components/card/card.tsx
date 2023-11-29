@@ -15,9 +15,9 @@ type TCardProps = {
 
 function Card({
   offer,
+  type = TYPE_CARD.CITY,
   onCardHover,
   onCardLeave,
-  type = TYPE_CARD.CITY,
 }: TCardProps): JSX.Element {
   const {
     id,

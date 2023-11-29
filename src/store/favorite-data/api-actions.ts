@@ -3,7 +3,7 @@ import { TFavoritePost, TOfferPreview, TOffersPreview } from '../../types';
 import { APIRoute, NameSpace } from '../../const';
 import { TThunkApiConfig } from '../../types/thunk';
 import { replaceURI } from '../../utils';
-import { updateOffer, updateOffers } from '..';
+import { updateNearbyPlaces, updateOffer, updateOffers } from '..';
 
 const getAsyncFavorites = createAsyncThunk<TOffersPreview, undefined, TThunkApiConfig>(
   `${NameSpace.Data}/getFavorites`,
@@ -24,6 +24,7 @@ const postAsyncFavorite = createAsyncThunk<TOfferPreview, TFavoritePost, TThunkA
       const { data } = await api.post<TOfferPreview>(replaceURI(APIRoute.FavoriteStatus, offerId, String(status)), {});
       dispatch(updateOffers(data));
       dispatch(updateOffer(data));
+      dispatch(updateNearbyPlaces(data));
       return data;
     } catch (e) {
       return rejectWithValue(e as Error);
