@@ -1,20 +1,18 @@
-import { MAX_NEAR_PLACES_COUNT, TYPE_CARD } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { selectNearbyPlaces } from '../../store';
 import { Card } from '..';
+import { TYPE_CARD } from '../../const';
+import { TOffersPreview } from '../../types';
 
-function Nearby(): JSX.Element {
-  const nearPlaces = useAppSelector(selectNearbyPlaces)?.slice(
-    0,
-    MAX_NEAR_PLACES_COUNT
-  );
+type TNearbyProps = {
+  offers: TOffersPreview;
+};
 
+function Nearby({ offers }: TNearbyProps): JSX.Element {
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {nearPlaces.map((nearPlace) => (
-          <Card key={nearPlace.id} offer={nearPlace} type={TYPE_CARD.NEAR} />
+        {offers.map((offer) => (
+          <Card key={offer.id} offer={offer} type={TYPE_CARD.NEAR} />
         ))}
       </div>
     </section>

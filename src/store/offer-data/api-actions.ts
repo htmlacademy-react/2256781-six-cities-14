@@ -10,7 +10,6 @@ const getAsyncOffer = createAsyncThunk<TOffer, TOfferId, TThunkApiConfig>(
     try {
       const route = replaceURI(APIRoute.Offer, offerId);
       const { data } = await api.get<TOffer>(route);
-
       return data;
     } catch (error) {
       throw new Error();
@@ -24,7 +23,6 @@ const getAsyncNearbyPlaces = createAsyncThunk<TOffersPreview, TOfferId, TThunkAp
     try {
       const route = replaceURI(APIRoute.Nearby, offerId);
       const { data } = await api.get<TOffersPreview>(route);
-
       return data;
     } catch (error) {
       throw new Error();
@@ -38,7 +36,6 @@ const getAsyncReviews = createAsyncThunk<TReviews, TOfferId, TThunkApiConfig>(
     try {
       const route = replaceURI(APIRoute.Review, offerId);
       const { data } = await api.get<TReviews>(route);
-
       return data;
     } catch (error) {
       throw new Error();
@@ -52,7 +49,6 @@ const postAsyncReview = createAsyncThunk<TReview, TReviewData, TThunkApiConfig>(
     try {
       const route = replaceURI(APIRoute.Review, offerId);
       const { data } = await api.post<TReview>(route, { rating, comment });
-
       return data;
     } catch (error) {
       throw new Error();

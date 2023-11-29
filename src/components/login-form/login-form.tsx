@@ -22,34 +22,32 @@ const validate = (formData: TAuthData): boolean => {
 };
 
 function LoginForm() {
-  const [isOk, setIsOk] = useState(false);
+  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
   const [formData, setFormData] = useState<TAuthData>({
     email: '',
     password: '',
   });
   const dispatch = useAppDispatch();
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
     if (validate({ ...formData, [name]: value })) {
-      setIsOk(true);
+      setIsSubmitButtonOk(true);
     } else {
-      setIsOk(false);
+      setIsSubmitButtonOk(false);
     }
   };
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (validate(formData)) {
-      dispatch(
-        postAsyncAuth({
-          email: formData.email,
-          password: formData.password,
-        })
-      );
-    }
+    dispatch(
+      postAsyncAuth({
+        email: formData.email,
+        password: formData.password,
+      })
+    );
   };
 
   return (
@@ -64,7 +62,7 @@ function LoginForm() {
         <div className="login__input-wrapper form__input-wrapper">
           <label className="visually-hidden">E-mail</label>
           <input
-            onChange={handleInputChange}
+            onChange={handleTextChange}
             value={formData.email}
             className="login__input form__input"
             type="email"
@@ -77,7 +75,7 @@ function LoginForm() {
         <div className="login__input-wrapper form__input-wrapper">
           <label className="visually-hidden">Password</label>
           <input
-            onChange={handleInputChange}
+            onChange={handleTextChange}
             value={formData.password}
             className="login__input form__input"
             type="password"
@@ -90,7 +88,7 @@ function LoginForm() {
         <button
           className="login__submit form__submit button"
           type="submit"
-          disabled={!isOk}
+          disabled={!isSubmitButtonOk}
         >
           Sign in
         </button>
