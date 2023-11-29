@@ -12,7 +12,7 @@ import {
   selectNearbyPlaces,
   selectOffer,
 } from '../../store';
-import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT } from '../../const';
+import { MAX_NEAR_PLACES_COUNT } from '../../const';
 import { Spinner } from '../../components/spinner/spinner';
 
 const override: CSSProperties = {
@@ -31,21 +31,18 @@ function OfferPage(): JSX.Element {
     0,
     MAX_NEAR_PLACES_COUNT
   );
-  const shouldShowReviews = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (offerId) {
       dispatch(getAsyncOffer(offerId));
       dispatch(getAsyncNearbyPlaces(offerId));
-      if (shouldShowReviews) {
-        dispatch(getAsyncReviews(offerId));
-      }
+      dispatch(getAsyncReviews(offerId));
     }
 
     return () => {
       dispatch(assignEmptyOffer());
     };
-  }, [offerId, shouldShowReviews, dispatch]);
+  }, [offerId, dispatch]);
 
   if (!currentOffer) {
     return (

@@ -55,7 +55,7 @@ const offerData = createSlice({
         state.nearbyPlaces = action.payload;
       })
       .addCase(getAsyncReviews.fulfilled, (state, action) => {
-        state.reviews = action.payload;
+        state.reviews = action.payload.slice(0, 10);
       })
       .addCase(postAsyncReview.fulfilled, (state, action) => {
         state.reviews.push(action.payload);

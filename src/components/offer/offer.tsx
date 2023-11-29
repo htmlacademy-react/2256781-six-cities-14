@@ -23,7 +23,8 @@ type TOfferProps = {
 const BookmarkMemo = memo(Bookmark);
 
 function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
-  const reviews = useAppSelector(selectReviews);
+  const MAX_REVIEWS_COUNT = 10;
+  const reviews = useAppSelector(selectReviews).slice(0, MAX_REVIEWS_COUNT);
   const {
     id,
     isPremium,
