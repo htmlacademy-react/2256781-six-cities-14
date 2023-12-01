@@ -3,7 +3,6 @@ import { TThunkApiConfig } from '../../types/thunk';
 import { APIRoute, NameSpace } from '../../const';
 import { TAuthData, TUserData } from '../../types';
 import { dropToken, saveToken } from '../../services/token';
-// import { redirectToRoute } from '..';
 
 const getAsyncAuth = createAsyncThunk<TUserData, undefined, TThunkApiConfig>(
   `${NameSpace.Data}/fetchAuthStatus`,
@@ -35,7 +34,6 @@ const deleteAsyncAuth = createAsyncThunk<void, undefined, TThunkApiConfig>(
   `${NameSpace.Data}/fetchLogout`,
   async (_arg, { extra: api }) => {
     try {
-      // dispatch(redirectToRoute(AppRoute.Login));
       await api.delete(APIRoute.Logout);
       dropToken();
     } catch (error) {

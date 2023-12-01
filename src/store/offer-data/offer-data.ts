@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { NameSpace, RequestStatus } from '../../const';
 import { TReviews } from '../../types/review';
 import { TOffer, TOfferPreview, TOffersPreview } from '../../types';
 import { getAsyncNearbyPlaces, getAsyncOffer, getAsyncReviews, postAsyncReview } from '..';
@@ -9,6 +9,7 @@ type TOfferData = {
   offer: TOffer | null;
   nearbyPlaces: TOffersPreview;
   reviews: TReviews;
+  reviewRequestStatus: RequestStatus;
 };
 
 const initialState: TOfferData = {
@@ -16,6 +17,7 @@ const initialState: TOfferData = {
   offer: null,
   nearbyPlaces: [],
   reviews: [],
+  reviewRequestStatus: RequestStatus.Idle,
 };
 
 const offerData = createSlice({
@@ -38,6 +40,9 @@ const offerData = createSlice({
         }
       });
     },
+    assignReviewRequestStatusByDefault: (state) => {
+      state.reviewRequestStatus = RequestStatus.Idle;
+    },
   },
   extraReducers(builder) {
     builder
@@ -55,14 +60,20 @@ const offerData = createSlice({
         state.nearbyPlaces = action.payload;
       })
       .addCase(getAsyncReviews.fulfilled, (state, action) => {
-        state.reviews = action.payload.slice(0, 10);
+        state.reviews = action.payload;
+      }).addCase(postAsyncReview.pending, (state) => {
+        state.reviewRequestStatus = RequestStatus.Pending;
       })
       .addCase(postAsyncReview.fulfilled, (state, action) => {
+        state.reviewRequestStatus = RequestStatus.Success;
         state.reviews.push(action.payload);
+      })
+      .addCase(postAsyncReview.rejected, (state) => {
+        state.reviewRequestStatus = RequestStatus.Error;
       });
   }
 });
 
-const { assignEmptyOffer, updateOffer, updateNearbyPlaces } = offerData.actions;
+const { assignEmptyOffer, updateOffer, updateNearbyPlaces, assignReviewRequestStatusByDefault } = offerData.actions;
 
-export { offerData, assignEmptyOffer, updateOffer, updateNearbyPlaces };
+export { offerData, assignEmptyOffer, updateOffer, updateNearbyPlaces, assignReviewRequestStatusByDefault };

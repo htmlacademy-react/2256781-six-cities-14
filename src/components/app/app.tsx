@@ -1,14 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../../components';
-import { useEffect, useRef } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  getAsyncAuth,
-  getAsyncFavorites,
-  getAsyncOffers,
-  selectAuthStatus,
-} from '../../store';
 import {
   MainPage,
   NotFoundPage,
@@ -18,40 +10,9 @@ import {
 } from '../../pages';
 
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(selectAuthStatus);
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    if (isMounted.current) {
-      dispatch(getAsyncAuth());
-    }
-
-    dispatch(getAsyncOffers());
-
-    if (authStatus === AuthorizationStatus.Auth) {
-      dispatch(getAsyncFavorites());
-    }
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, [dispatch, authStatus]);
-
   return (
     <Routes>
-      <Route path={AppRoute.Main} element={<MainPage />} />
-      <Route
-        path={AppRoute.Login}
-        element={
-          <ProtectedRoute
-            restrictedFor={AuthorizationStatus.Auth}
-            redirectTo={AppRoute.Main}
-          >
-            <LoginPage />
-          </ProtectedRoute>
-        }
-      />
+      <Route index element={<MainPage />} />
       <Route
         path={AppRoute.Favorites}
         element={
@@ -63,6 +24,7 @@ function App(): JSX.Element {
           </ProtectedRoute>
         }
       />
+      <Route path={AppRoute.Login} element={<LoginPage />} />
       <Route path={`${AppRoute.Offer}:offerId`} element={<OfferPage />} />
       <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
     </Routes>

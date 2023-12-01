@@ -1,11 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import { Favorite, FavoriteEmpty, Header } from '../../components';
 import { Footer } from '../../components';
-import { selectIsEmptyFavorites } from '../../store';
-import { useAppSelector } from '../../hooks';
+import { getAsyncFavorites, selectIsEmptyFavorites } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 
 function FavoritePage(): JSX.Element {
   const isFavoritesEmpty = useAppSelector(selectIsEmptyFavorites);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAsyncFavorites());
+  }, [dispatch]);
 
   return (
     <div className="page page--favorites-empty">

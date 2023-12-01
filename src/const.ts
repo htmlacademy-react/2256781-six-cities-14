@@ -87,9 +87,9 @@ const COMMENT_DATE = 'MMMM YYYY';
 
 const COMMENT_DATE_TIME = 'YYYY-MM-DD';
 
-const MAP_MARKER_DEFAULT = 'img/pin.svg';
+const MAP_MARKER_DEFAULT = '/img/pin.svg';
 
-const MAP_MARKER_CURRENT = 'img/pin-active.svg';
+const MAP_MARKER_CURRENT = '/img/pin-active.svg';
 
 const LAYER = {
   URL: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -137,7 +137,9 @@ enum NameSpace {
   App = 'APP',
 }
 
-const MAX_NEAR_PLACES_COUNT = 10;
+const MAX_COUNT_NEARBY_PLACES = 3;
+
+const MAX_COUNT_REVIEWS = 10;
 
 const DEFAULT_COORDINATE_MAP = {
   latitude: 48.85661,
@@ -194,6 +196,13 @@ enum APIRoute {
   Logout = '/logout',
 }
 
+enum RequestStatus {
+  Idle = 'idle',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}
+
 export {
   MAX_RATING,
   TYPE_CARD,
@@ -205,7 +214,8 @@ export {
   MAP_MARKER_CURRENT,
   LAYER,
   CITIES,
-  MAX_NEAR_PLACES_COUNT,
+  MAX_COUNT_NEARBY_PLACES,
+  MAX_COUNT_REVIEWS,
   DEFAULT_COORDINATE_MAP,
   DEFAULT_OFFER,
   SORTING_MAP,
@@ -216,4 +226,5 @@ export {
   StarType,
   NameSpace,
   APIRoute,
+  RequestStatus,
 };
