@@ -5,12 +5,16 @@ import { TAppData, appData, assignCity, assignSorting } from './app-data';
 describe('reducer: appData', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
+    const initialState: TAppData = {
+      city: getActiveCityByDefault(),
+      sorting: 'POPULAR',
+    };
     const expectedState: TAppData = {
       city: getActiveCityByDefault(),
       sorting: 'POPULAR',
     };
 
-    expect(appData.reducer(expectedState, emptyAction)).toEqual(expectedState);
+    expect(appData.reducer(initialState, emptyAction)).toEqual(expectedState);
   });
 
   it('should return default initial state with empty action and undefined state', () => {
