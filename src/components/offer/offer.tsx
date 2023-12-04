@@ -1,7 +1,6 @@
 import { MarkType, MapType, StarType, AuthorizationStatus } from '../../const';
-import { useAppSelector, useFavoritesMark } from '../../hooks';
-import { selectReviews } from '../../store';
-import { TOffer, TOffersPreview } from '../../types';
+import { useFavoritesMark } from '../../hooks';
+import { TOffer, TOffersPreview, TReviews } from '../../types';
 import { getStringSuperscript } from '../../utils/common';
 import {
   Bookmark,
@@ -13,17 +12,25 @@ import {
   StarLine,
 } from '../../components';
 import { memo, useCallback } from 'react';
+import cn from 'classnames';
 
 type TOfferProps = {
   offer: TOffer;
   authStatus: AuthorizationStatus;
-  nearbyPlaces: TOffersPreview;
+  offers: TOffersPreview;
+  reviews: TReviews;
+  numberReviews: number;
 };
 
 const BookmarkMemo = memo(Bookmark);
 
-function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
-  const reviews = useAppSelector(selectReviews);
+function Offer({
+  offer,
+  authStatus,
+  offers,
+  reviews,
+  numberReviews,
+}: TOfferProps): JSX.Element {
   const {
     id,
     isPremium,
@@ -85,10 +92,10 @@ function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
               {getStringSuperscript(type)}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              {`${bedrooms} Bedroom(s)`}
+              {bedrooms} Bedroom{bedrooms > 1 && 's'}
             </li>
             <li className="offer__feature offer__feature--adults">
-              {`Max ${maxAdults} adults`}
+              Max {maxAdults} adult{maxAdults > 1 && 's'}
             </li>
           </ul>
 
@@ -102,7 +109,11 @@ function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
           <div className="offer__host">
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+              <div
+                className={cn('offer__avatar-wrapper', 'user__avatar-wrapper', {
+                  'offer__avatar-wrapper--pro': isPro,
+                })}
+              >
                 <img
                   className="offer__avatar user__avatar"
                   src={avatarUrl}
@@ -119,11 +130,16 @@ function Offer({ offer, authStatus, nearbyPlaces }: TOfferProps): JSX.Element {
             </div>
           </div>
 
-          <Review offerId={id} reviews={reviews} authStatus={authStatus} />
+          <Review
+            offerId={id}
+            reviews={reviews}
+            numberReviews={numberReviews}
+            authStatus={authStatus}
+          />
         </div>
       </div>
 
-      <Map type={MapType.Offer} activeOffer={offer} offers={nearbyPlaces} />
+      <Map type={MapType.Offer} activeOffer={offer} offers={offers} />
     </section>
   );
 }

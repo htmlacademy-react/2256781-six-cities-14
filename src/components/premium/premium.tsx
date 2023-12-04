@@ -7,7 +7,7 @@ type TPremiumProps = {
 
 function Premium({ mark, isPremium }: TPremiumProps): JSX.Element | null {
   return isPremium ? (
-    <div className={mark}>
+    <div className={mark} data-testid="premium-container">
       <span>Premium</span>
     </div>
   ) : null;

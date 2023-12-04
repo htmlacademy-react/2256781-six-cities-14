@@ -1,4 +1,3 @@
-export * from './service-actions.ts';
 export * from './app-data/app-data.ts';
 export * from './app-data/selectors.ts';
 
@@ -18,8 +17,6 @@ export * from './user-process/user-process.ts';
 export * from './user-process/api-actions.ts';
 export * from './user-process/selectors.ts';
 
-//! ловил ошибку - ReferenceError: Cannot access 'rootReducer' before initialization
-//* Реэкспорт редьюсера должен быть после всех api-actions.ts и до store.ts
 export * from './root-reducer.ts';
 
 export * from './store.ts';

@@ -4,12 +4,14 @@ import { RATING_STARS } from '../../const';
 type TRatingFormProps = {
   rating?: number;
   ratings: typeof RATING_STARS;
+  disabled: boolean;
   onRatingChange: (rating: number) => void;
 };
 
 function RatingForm({
   rating = 0,
   ratings,
+  disabled,
   onRatingChange,
 }: TRatingFormProps): JSX.Element {
   function handleInputChange(count: number): void {
@@ -30,6 +32,7 @@ function RatingForm({
             type="radio"
             onChange={() => handleInputChange(item.count)}
             checked={item.count === rating}
+            disabled={disabled}
           />
           <label
             htmlFor={`${item.count}-stars`}

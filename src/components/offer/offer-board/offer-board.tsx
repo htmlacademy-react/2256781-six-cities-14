@@ -35,7 +35,7 @@ function OfferBoard({
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {offerCount} places to stay in {cityName}
+        {offerCount} place{offerCount > 1 && 's'} to stay in {cityName}
       </b>
       <SortingMemo
         activeSorting={activeSorting}

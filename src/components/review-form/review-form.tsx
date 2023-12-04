@@ -1,53 +1,71 @@
-import { FormEvent, memo, useCallback, useState } from 'react';
-import { RATING_STARS } from '../../const';
-import { RatingForm } from '../../components';
-import { useAppDispatch } from '../../hooks';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import { RATING_STARS, RequestStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { TOfferId, TReviewData } from '../../types';
-import { postAsyncReview } from '../../store';
+import {
+  assignReviewRequestStatusByDefault,
+  postAsyncReview,
+  selectReviewRequestStatus,
+} from '../../store';
+import { toast } from 'react-toastify';
 
 type TReviewFormProps = {
   offerId: TOfferId;
 };
 
-const RatingFormMemo = memo(RatingForm);
 const MIN_COUNT_CHARACTERS = 50;
+const MAX_COUNT_CHARACTERS = 300;
 const validateText = (text: string): boolean =>
-  text.length >= MIN_COUNT_CHARACTERS;
+  text.length >= MIN_COUNT_CHARACTERS && text.length < MAX_COUNT_CHARACTERS;
 
 function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
-  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
+  const [isCorrectUserInput, setIsCorrectUserInput] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
+  const reviewRequestStatus = useAppSelector(selectReviewRequestStatus);
   const dispatch = useAppDispatch();
 
-  const resetFormStatus = () => {
-    setComment('');
-    setRating(0);
-    setIsSubmitButtonOk(false);
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    switch (reviewRequestStatus) {
+      case RequestStatus.Success:
+        setComment('');
+        setRating(0);
+        setIsCorrectUserInput(false);
+        dispatch(assignReviewRequestStatusByDefault());
+        break;
+      case RequestStatus.Pending:
+        setIsLoading(true);
+        break;
+      case RequestStatus.Error:
+        toast.warn('Error sending a comment', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setIsLoading(false);
+        break;
+      default:
+        setIsLoading(false);
+    }
+  }, [reviewRequestStatus, dispatch]);
 
   const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
 
     if (validateText(evt.target.value)) {
-      setIsSubmitButtonOk(true);
+      setIsCorrectUserInput(true);
     } else {
-      setIsSubmitButtonOk(false);
+      setIsCorrectUserInput(false);
     }
   };
 
-  const handleRatingChange = useCallback((count: number) => {
-    setRating(count);
-  }, []);
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(evt.target.value));
+  };
 
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     const review: TReviewData = { id: offerId, comment, rating };
-    setIsLoading(true);
     dispatch(postAsyncReview(review));
-    resetFormStatus();
   };
 
   return (
@@ -61,11 +79,31 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating" data-rating={rating}>
-        <RatingFormMemo
-          rating={rating}
-          ratings={RATING_STARS}
-          onRatingChange={handleRatingChange}
-        />
+        {RATING_STARS.map((title, index) => ({ title, score: ++index }))
+          .toReversed()
+          .map(({ title, score }) => (
+            <Fragment key={score}>
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={score}
+                id={`${score}-stars`}
+                type="radio"
+                checked={rating === score}
+                disabled={isLoading}
+                onChange={handleRatingChange}
+              />
+              <label
+                htmlFor={`${score}-stars`}
+                className="reviews__rating-label form__rating-label"
+                title={title}
+              >
+                <svg className="form__star-image" width="37" height="33">
+                  <use xlinkHref="#icon-star"></use>
+                </svg>
+              </label>
+            </Fragment>
+          ))}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
@@ -74,7 +112,7 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextChange}
         value={comment}
-        required
+        disabled={isLoading}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -85,7 +123,7 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isSubmitButtonOk}
+          disabled={!isCorrectUserInput || isLoading}
         >
           {isLoading ? 'Sending...' : 'Submit'}
         </button>

@@ -15,4 +15,4 @@ const selectOffersMemo = createSelector(
 
 const selectIsEmptyOffers = (state: TState) => !state[NameSpace.Offers].offers.length;
 
-export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffers };
+export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffers, selectOffers };

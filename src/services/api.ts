@@ -45,9 +45,13 @@ const createAPI = (): AxiosInstance => {
     (error: AxiosError<TDetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
-        toast.warn(`Server Error: ${detailMessage.message}`);
+        toast.warn(`Server Error: ${detailMessage.message}`, {
+          position: toast.POSITION.TOP_CENTER
+        });
       } else if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        toast.warn('You are not an authorized user! Log in or create a new account for free.');
+        toast.warn('You are not an authorized user! Log in or create a new account for free.', {
+          position: toast.POSITION.TOP_CENTER
+        });
       } else if (error.response?.status === StatusCodes.NOT_FOUND) {
         browserHistory.push(AppRoute.NotFound);
       }

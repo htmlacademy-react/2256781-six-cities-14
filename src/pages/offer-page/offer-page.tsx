@@ -5,15 +5,19 @@ import { useParams } from 'react-router-dom';
 import { CSSProperties, useEffect } from 'react';
 import {
   assignEmptyOffer,
+  getAsyncFavorites,
   getAsyncNearbyPlaces,
   getAsyncOffer,
   getAsyncReviews,
   selectAuthStatus,
   selectNearbyPlaces,
+  selectNumberReviews,
   selectOffer,
+  selectReviews,
 } from '../../store';
-import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT } from '../../const';
+import { MAX_COUNT_NEARBY_PLACES } from '../../const';
 import { Spinner } from '../../components/spinner/spinner';
+import { TOfferPreview, TOffersPreview } from '../../types';
 
 const override: CSSProperties = {
   display: 'flex',
@@ -29,23 +33,23 @@ function OfferPage(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
   const nearbyPlaces = useAppSelector(selectNearbyPlaces)?.slice(
     0,
-    MAX_NEAR_PLACES_COUNT
+    MAX_COUNT_NEARBY_PLACES
   );
-  const shouldShowReviews = authStatus === AuthorizationStatus.Auth;
+  const reviews = useAppSelector(selectReviews);
+  const numberReviews = useAppSelector(selectNumberReviews);
 
   useEffect(() => {
     if (offerId) {
       dispatch(getAsyncOffer(offerId));
       dispatch(getAsyncNearbyPlaces(offerId));
-      if (shouldShowReviews) {
-        dispatch(getAsyncReviews(offerId));
-      }
+      dispatch(getAsyncReviews(offerId));
+      dispatch(getAsyncFavorites());
     }
 
     return () => {
       dispatch(assignEmptyOffer());
     };
-  }, [offerId, shouldShowReviews, dispatch]);
+  }, [offerId, dispatch]);
 
   if (!currentOffer) {
     return (
@@ -60,6 +64,9 @@ function OfferPage(): JSX.Element {
   }
 
   const { title, id } = currentOffer;
+  const additional: TOfferPreview = currentOffer as unknown as TOfferPreview;
+  const offersOnMap: TOffersPreview = [...nearbyPlaces];
+  offersOnMap.push(additional);
 
   return (
     <div className="page">
@@ -71,9 +78,11 @@ function OfferPage(): JSX.Element {
 
       <main className="page__main page__main--offer">
         <Offer
-          nearbyPlaces={nearbyPlaces}
+          offers={offersOnMap}
           offer={currentOffer}
           authStatus={authStatus}
+          reviews={reviews}
+          numberReviews={numberReviews}
         />
         <div className="container">
           <Nearby offers={nearbyPlaces} />

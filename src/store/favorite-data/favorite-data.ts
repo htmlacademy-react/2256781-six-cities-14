@@ -68,4 +68,4 @@ const favoriteData = createSlice({
   },
 });
 
-export { favoriteData };
+export { favoriteData, type TFavoritesData };

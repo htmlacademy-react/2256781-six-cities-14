@@ -7,7 +7,7 @@ const validateEmail = (email: string): boolean =>
   /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
 
 const validatePassword = (password: string): boolean =>
-  /^(?=.*\d)(?=(.*\W){1})(?=.*[a-zA-Z])(?!.*\s).{3,}$/.test(password);
+  /^[A-za-z0-9_]+[A-za-z0-9_]{1,}$/.test(password);
 
 const validate = (formData: TAuthData): boolean => {
   if (!validateEmail(formData.email)) {
@@ -21,7 +21,7 @@ const validate = (formData: TAuthData): boolean => {
   return true;
 };
 
-function LoginForm() {
+function LoginForm(): JSX.Element {
   const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
   const [formData, setFormData] = useState<TAuthData>({
     email: '',

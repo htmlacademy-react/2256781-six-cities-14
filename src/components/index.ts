@@ -25,3 +25,4 @@ export * from './login-form/login-form';
 export * from './bookmark/bookmark';
 export * from './favorite/favorite-empty/favorite-empty';
 export * from './scroll-to-top/scroll-to-top';
+export * from './premium/premium';
