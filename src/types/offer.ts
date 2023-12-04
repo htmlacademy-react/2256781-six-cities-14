@@ -39,4 +39,4 @@ type TOffersPreview = TOfferPreview[];
 
 type TOfferId = string;
 
-export { type TOffer, type TCityName, type TOfferPreview, type TOffersPreview, type TLocation, type TOfferId };
+export { type TOffer, type TCityName, type TOfferPreview, type TOffersPreview, type TLocation, type TOfferId, type TCity };
