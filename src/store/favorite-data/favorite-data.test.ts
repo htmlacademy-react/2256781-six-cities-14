@@ -13,7 +13,7 @@ const initialState: TFavoritesData = {
     message: '',
   },
 };
-let fakeOffers = makeFakeOffersPreview();
+const fakeOffers = makeFakeOffersPreview();
 let state: TFavoritesData;
 
 describe('reducer: favorite', () => {
