@@ -7,11 +7,13 @@ import {
   lorem,
 } from 'faker';
 
-import { TCity, TCityName, TLocation, TOffer, TOfferPreview, TOffersPreview } from '../types';
+import { TCity, TCityName, TLocation, TOffer, TOfferPreview, TOffersPreview, TState } from '../types';
 import { TReview, TReviews } from '../types/review';
 import { TUser } from '../types/user';
 import { address } from 'faker/locale/en';
 import { TUserData } from '../types/user';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
+import { createAPI } from '../services/api';
 
 const makeFakeUser = (): TUser => ({
   name: internet.userName(),
@@ -88,4 +90,8 @@ const makeFakeReview = (): TReview => ({
 const makeFakeReviews = (): TReviews =>
   Array.from({ length: 5 }, makeFakeReview);
 
-export { makeFakeReviews, makeFakeNearOffersPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer };
+const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+type AppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
+
+export { makeFakeReviews, makeFakeNearOffersPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch };
