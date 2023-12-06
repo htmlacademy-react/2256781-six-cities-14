@@ -13,10 +13,31 @@ type TReviewFormProps = {
   offerId: TOfferId;
 };
 
+type TValidateSubmitting = {
+  cb: (ability: boolean) => void;
+  rating: number;
+  text: string;
+};
+
 const MIN_COUNT_CHARACTERS = 50;
 const MAX_COUNT_CHARACTERS = 300;
+
 const validateText = (text: string): boolean =>
   text.length >= MIN_COUNT_CHARACTERS && text.length < MAX_COUNT_CHARACTERS;
+
+const validateRating = (rating: number): boolean => rating > 0;
+
+const setFormSubmitAbility = ({
+  cb,
+  rating,
+  text,
+}: TValidateSubmitting): void => {
+  if (validateText(text) && validateRating(rating)) {
+    cb(true);
+  } else {
+    cb(false);
+  }
+};
 
 function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
   const [isCorrectUserInput, setIsCorrectUserInput] = useState(false);
@@ -49,17 +70,26 @@ function ReviewForm({ offerId }: TReviewFormProps): JSX.Element {
   }, [reviewRequestStatus, dispatch]);
 
   const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(evt.target.value);
+    const textValue = evt.target.value;
+    setComment(textValue);
 
-    if (validateText(evt.target.value)) {
-      setIsCorrectUserInput(true);
-    } else {
-      setIsCorrectUserInput(false);
-    }
+    setFormSubmitAbility({
+      rating,
+      text: textValue,
+      cb: setIsCorrectUserInput,
+    });
   };
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+    const ratingValue = Number(evt.target.value);
+
+    setRating(ratingValue);
+
+    setFormSubmitAbility({
+      rating: ratingValue,
+      text: comment,
+      cb: setIsCorrectUserInput,
+    });
   };
 
   const handleFormSubmit = (evt: FormEvent) => {
