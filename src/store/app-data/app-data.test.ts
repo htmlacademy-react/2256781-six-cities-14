@@ -2,7 +2,7 @@ import { TCityName, TSorting } from '../../types';
 import { getActiveCityByDefault } from '../../utils';
 import { TAppData, appData, assignCity, assignSorting } from './app-data';
 
-describe('reducer: appData', () => {
+describe('Reducer: appData', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };
     const initialState: TAppData = {

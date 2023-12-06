@@ -13,7 +13,7 @@ const initialState: TOfferData = {
 
 let state: TOfferData;
 
-describe('reducer: favorite', () => {
+describe('Reducer: offer', () => {
 
   beforeEach(() => {
     state = { ...initialState };
