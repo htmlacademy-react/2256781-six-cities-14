@@ -29,6 +29,11 @@ const makeFakeUserData = (): TUserData => ({
   token: datatype.string(),
 });
 
+const makeFakeUserRegistrationData = () => ({
+  email: internet.email(),
+  password: datatype.string(),
+});
+
 const makeFakeLocation = (): TLocation => ({
   zoom: datatype.number({ min: 5, max: 15 }),
   latitude: datatype.number({ min: 5, max: 6, precision: 0.0001 }),
@@ -100,4 +105,4 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 type AppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
 
-export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview, makeFakePreviewData };
+export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview, makeFakePreviewData, makeFakeUserRegistrationData };

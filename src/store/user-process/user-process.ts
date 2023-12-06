@@ -40,4 +40,4 @@ const userProcess = createSlice({
   }
 });
 
-export { userProcess };
+export { userProcess, type TUserProcess };
