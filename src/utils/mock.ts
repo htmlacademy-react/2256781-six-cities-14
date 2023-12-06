@@ -8,7 +8,7 @@ import {
 } from 'faker';
 
 import { TCity, TCityName, TLocation, TOffer, TOfferPreview, TOffersPreview, TState } from '../types';
-import { TReview, TReviews } from '../types/review';
+import { TReview, TReviewData, TReviews } from '../types/review';
 import { TUser } from '../types/user';
 import { address } from 'faker/locale/en';
 import { TUserData } from '../types/user';
@@ -87,6 +87,12 @@ const makeFakeReview = (): TReview => ({
   date: String(date.recent()),
 });
 
+const makeFakePreviewData = (): TReviewData => ({
+  id: datatype.string(),
+  rating: datatype.number({ min: 1, max: 5, precision: 0.1 }),
+  comment: lorem.sentence(),
+});
+
 const makeFakeReviews = (): TReviews =>
   Array.from({ length: 5 }, makeFakeReview);
 
@@ -94,4 +100,4 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 type AppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
 
-export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview };
+export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview, makeFakePreviewData };
