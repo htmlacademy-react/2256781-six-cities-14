@@ -42,4 +42,4 @@ const offersData = createSlice({
 
 const { updateOffers } = offersData.actions;
 
-export { offersData, updateOffers };
+export { offersData, updateOffers, type TOffersData };
