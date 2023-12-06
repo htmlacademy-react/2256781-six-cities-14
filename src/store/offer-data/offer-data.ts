@@ -76,4 +76,4 @@ const offerData = createSlice({
 
 const { assignEmptyOffer, updateOffer, updateNearbyPlaces, assignReviewRequestStatusByDefault } = offerData.actions;
 
-export { offerData, assignEmptyOffer, updateOffer, updateNearbyPlaces, assignReviewRequestStatusByDefault };
+export { offerData, assignEmptyOffer, updateOffer, updateNearbyPlaces, assignReviewRequestStatusByDefault, type TOfferData };

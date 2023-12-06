@@ -76,7 +76,7 @@ const makeFakeOffer = (): TOffer => ({
 const makeFakeOffersPreview = (): TOffersPreview =>
   Array.from({ length: 12 }, makeFakeOfferPreview);
 
-const makeFakeNearOffersPreview = (): TOffersPreview =>
+const makeFakeNearbyPlacesPreview = (): TOffersPreview =>
   Array.from({ length: 3 }, makeFakeOfferPreview);
 
 const makeFakeReview = (): TReview => ({
@@ -94,4 +94,4 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 type AppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
 
-export { makeFakeReviews, makeFakeNearOffersPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch };
+export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview };
