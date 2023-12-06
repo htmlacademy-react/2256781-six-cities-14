@@ -16,7 +16,7 @@ const initialState: TFavoritesData = {
 const fakeOffers = makeFakeOffersPreview();
 let state: TFavoritesData;
 
-describe('reducer: favorite', () => {
+describe('Reducer: favorite', () => {
 
   beforeEach(() => {
     state = { ...initialState };
