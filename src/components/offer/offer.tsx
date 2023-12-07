@@ -1,5 +1,5 @@
 import { MarkType, MapType, StarType, AuthorizationStatus } from '../../const';
-import { useFavoritesMark } from '../../hooks';
+import { useAppSelector, useFavoritesMark } from '../../hooks';
 import { TOffer, TOffersPreview, TReviews } from '../../types';
 import { getStringSuperscript } from '../../utils/common';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../../components';
 import { memo, useCallback } from 'react';
 import cn from 'classnames';
+import { selectIsAuthStatus } from '../../store';
 
 type TOfferProps = {
   offer: TOffer;
@@ -46,6 +47,7 @@ function Offer({
     isFavorite,
   } = offer;
   const changeFavoritesMark = useFavoritesMark(id, isFavorite);
+  const isAuth = useAppSelector(selectIsAuthStatus);
   const { avatarUrl, name, isPro } = host;
   const markedFlagClassName =
     'offer__bookmark-button offer__bookmark-button--active button';
@@ -57,6 +59,8 @@ function Offer({
   const hiddenBookmarkDescription = isFavorite
     ? 'In bookmarks'
     : 'To bookmarks';
+  const bookmarkClass =
+    isFavorite && isAuth ? markedFlagClassName : unmarkedFlagClassName;
 
   const handleFavoriteChange = useCallback(() => {
     changeFavoritesMark();
@@ -74,9 +78,7 @@ function Offer({
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{title}</h1>
             <BookmarkMemo
-              actionClass={
-                isFavorite ? markedFlagClassName : unmarkedFlagClassName
-              }
+              actionClass={bookmarkClass}
               imageClass={imageBookmarkClassName}
               imageWidth={widthImageBookmark}
               imageHeight={heightImageBookmark}

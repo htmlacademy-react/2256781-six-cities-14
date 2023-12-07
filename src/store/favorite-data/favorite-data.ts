@@ -28,7 +28,7 @@ const initialState: TFavoritesData = {
 };
 
 const favoriteData = createSlice({
-  name: NameSpace.Favorite,
+  name: NameSpace.Offer,
   initialState,
   reducers: {},
   extraReducers(builder) {

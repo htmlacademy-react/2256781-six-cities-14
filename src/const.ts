@@ -126,14 +126,9 @@ const CITIES: TCityItems = [
 enum NameSpace {
   Offers = 'OFFERS',
   Offer = 'OFFER',
-  NearPlaces = 'NEAR_PLACES',
-  Favorites = 'FAVORITES',
   Favorite = 'FAVORITE',
-  Reviews = 'REVIEWS',
-  Review = 'REVIEW',
   User = 'USER',
   Data = 'DATA',
-  Loading = 'LOADING',
   App = 'APP',
 }
 

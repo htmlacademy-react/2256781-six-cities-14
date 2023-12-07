@@ -3,10 +3,10 @@ import { TState } from '../../types/state';
 import { AuthorizationStatus } from '../../const';
 import { TUserData } from '../../types';
 
-const selectAuthStatus = (state: TState): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
+const selectAuthStatus = (state: Pick<TState, NameSpace.User>): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 
-const selectIsAuthStatus = (state: TState): boolean => state[NameSpace.User].authorizationStatus !== AuthorizationStatus.NoAuth;
+const selectIsAuthStatus = (state: Pick<TState, NameSpace.User>): boolean => state[NameSpace.User].authorizationStatus !== AuthorizationStatus.NoAuth;
 
-const selectUserAuthData = (state: TState): TUserData | null => state[NameSpace.User].user;
+const selectUserAuthData = (state: Pick<TState, NameSpace.User>): TUserData | null => state[NameSpace.User].user;
 
 export { selectAuthStatus, selectIsAuthStatus, selectUserAuthData };

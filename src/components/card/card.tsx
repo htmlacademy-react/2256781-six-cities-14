@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { TCustomizationCard, TOfferPreview } from '../../types';
 import { AppRoute, TYPE_CARD, MarkType } from '../../const';
 import { Bookmark, Premium, StarLine } from '..';
-import { useFavoritesMark } from '../../hooks';
+import { useAppSelector, useFavoritesMark } from '../../hooks';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { selectIsAuthStatus } from '../../store';
 
 type TCardProps = {
   offer: TOfferPreview;
@@ -44,7 +45,9 @@ function Card({
   const hiddenBookmarkDescription = isFavorite
     ? 'In bookmarks'
     : 'To bookmarks';
-
+  const isAuth = useAppSelector(selectIsAuthStatus);
+  const bookmarkClass =
+    isFavorite && isAuth ? markClassNameActive : markClassName;
   const path = `${AppRoute.Offer}${id}`;
   const handleFavoriteChange = useFavoritesMark(id, isFavorite);
 
@@ -76,7 +79,7 @@ function Card({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <Bookmark
-            actionClass={isFavorite ? markClassNameActive : markClassName}
+            actionClass={bookmarkClass}
             imageClass={markImageClassName}
             hiddenDescription={hiddenBookmarkDescription}
             onMarkChange={handleFavoriteChange}
