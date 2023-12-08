@@ -16,7 +16,6 @@ type TOfferBoardProps = {
 };
 
 const OfferListMemo = memo(OfferList);
-const SortingMemo = memo(Sorting);
 
 function OfferBoard({
   offers,
@@ -37,7 +36,7 @@ function OfferBoard({
       <b className="places__found">
         {offerCount} place{offerCount > 1 && 's'} to stay in {cityName}
       </b>
-      <SortingMemo
+      <Sorting
         activeSorting={activeSorting}
         onChange={handleSortingChange}
       />

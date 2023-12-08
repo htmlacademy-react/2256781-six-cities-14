@@ -7,14 +7,14 @@ import {
   lorem,
 } from 'faker';
 
-import { TCity, TCityName, TFavoritePost, TLocation, TOffer, TOfferPreview, TOffersPreview, TState } from '../types';
+import { TCity, TCityName, TLocation, TOffer, TOfferPreview, TOffersPreview, TState } from '../types';
 import { TReview, TReviewData, TReviews } from '../types/review';
 import { TUser } from '../types/user';
 import { address } from 'faker/locale/en';
 import { TUserData } from '../types/user';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
-import { AuthorizationStatus, NameSpace, RequestStatus, SORTING_MAP } from '../const';
+import { AuthorizationStatus, NameSpace, RequestStatus } from '../const';
 import { getActiveCityByDefault } from '.';
 import { TAppData, TFavoritesData, TOfferData, TOffersData, TUserProcess } from '../store';
 

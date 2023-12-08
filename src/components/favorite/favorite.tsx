@@ -16,7 +16,11 @@ function Favorite(): JSX.Element {
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             {cities.map((city) => (
-              <li key={city} className="favorites__locations-items">
+              <li
+                key={city}
+                className="favorites__locations-items"
+                data-testid="favorites-item"
+              >
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
                     <Link className="locations__item-link" to={AppRoute.Main}>
