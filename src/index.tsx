@@ -18,10 +18,9 @@ root.render(
   <HelmetProvider>
     <Provider store={store}>
       <HistoryRouter history={browserHistory}>
+        <ScrollToTop />
         <ToastContainer />
-        <ScrollToTop>
-          <App />
-        </ScrollToTop>
+        <App />
       </HistoryRouter>
     </Provider>
   </HelmetProvider>
