@@ -58,6 +58,7 @@ function Sorting({ activeSorting, onChange }: TSortingProps): JSX.Element {
         className={cn('places__options', 'places__options--custom', {
           'places__options--opened': isOpened,
         })}
+        data-testid="sorting-container"
       >
         {(
           Object.entries(SORTING_MAP) as [
