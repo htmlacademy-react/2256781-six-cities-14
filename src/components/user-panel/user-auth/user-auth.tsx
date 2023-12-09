@@ -10,7 +10,7 @@ type TUserAuthProps = {
 
 function UserAuth({ onSignOut, quantityFavorite, userData }: TUserAuthProps) {
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="nav-container">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <Link
@@ -21,7 +21,7 @@ function UserAuth({ onSignOut, quantityFavorite, userData }: TUserAuthProps) {
             <span className="header__user-name user__name">
               {userData?.email}
             </span>
-            <span className="header__favorite-count">{quantityFavorite}</span>
+            <span className="header__favorite-count" data-testid="count-favorites">{quantityFavorite}</span>
           </Link>
         </li>
         <li className="header__nav-item">

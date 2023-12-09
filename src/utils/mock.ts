@@ -14,6 +14,9 @@ import { address } from 'faker/locale/en';
 import { TUserData } from '../types/user';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
+import { AuthorizationStatus, NameSpace, RequestStatus } from '../const';
+import { getActiveCityByDefault } from '.';
+import { TAppData, TFavoritesData, TOfferData, TOffersData, TUserProcess } from '../store';
 
 const makeFakeUser = (): TUser => ({
   name: internet.userName(),
@@ -27,6 +30,11 @@ const makeFakeUserData = (): TUserData => ({
   avatarUrl: internet.avatar(),
   email: internet.email(),
   token: datatype.string(),
+});
+
+const makeFakeUserRegistrationData = () => ({
+  email: internet.email(),
+  password: datatype.string(),
 });
 
 const makeFakeLocation = (): TLocation => ({
@@ -100,4 +108,57 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 type AppThunkDispatch = ThunkDispatch<TState, ReturnType<typeof createAPI>, Action>;
 
-export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview, makeFakePreviewData };
+function makeFakeState(initialState?: Partial<TState>) {
+  const appData: TAppData = {
+    city: getActiveCityByDefault(),
+    sorting: 'POPULAR',
+  };
+  const favoriteData: TFavoritesData = {
+    favorites: [],
+    favoritesStatus: {
+      status: false,
+      message: '',
+    },
+    markStatus: {
+      status: false,
+      message: '',
+    },
+  };
+  const offerData: TOfferData = {
+    isOfferLoading: false,
+    offer: null,
+    nearbyPlaces: [],
+    reviews: [],
+    reviewRequestStatus: RequestStatus.Idle,
+  };
+  const offersData: TOffersData = {
+    offers: [],
+    isOffersLoading: false,
+  };
+  const userData: TUserProcess = {
+    authorizationStatus: AuthorizationStatus.Unknown,
+    user: null,
+  };
+  const fakeState = {
+    [NameSpace.App]: {
+      ...appData
+    },
+    [NameSpace.Favorite]: {
+      ...favoriteData
+    },
+    [NameSpace.Offer]: {
+      ...offerData
+    },
+    [NameSpace.Offers]: {
+      ...offersData
+    },
+    [NameSpace.User]: {
+      ...userData
+    },
+    ...initialState ?? {}
+  };
+
+  return fakeState;
+}
+
+export { makeFakeReviews, makeFakeNearbyPlacesPreview, makeFakeOffersPreview, makeFakeUserData, makeFakeOffer, extractActionsTypes, type AppThunkDispatch, makeFakeOfferPreview, makeFakeReview, makeFakePreviewData, makeFakeUserRegistrationData, makeFakeState };

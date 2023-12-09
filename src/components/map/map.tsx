@@ -81,7 +81,7 @@ function Map({
     }
   }, [map, offers, markedOfferId]);
 
-  return <section className={`${type} map`} ref={mapRef}></section>;
+  return <section className={`${type} map`} ref={mapRef} data-testid="map-section"></section>;
 }
 
 export { Map };

@@ -42,7 +42,7 @@ function Spinner({
   }
 
   return (
-    <span style={wrapper} {...additionalprops}>
+    <span style={wrapper} {...additionalprops} data-testid="spinner-container">
       <span style={style(1)} />
       <span style={style(2)} />
       <span style={style(3)} />

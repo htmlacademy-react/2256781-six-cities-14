@@ -4,15 +4,15 @@ import { TState } from '../../types/state';
 import { selectCity, selectSorting } from '..';
 import { getOffersByCity, sorting } from '../../utils';
 
-const selectOffers = (state: TState) => state[NameSpace.Offers].offers;
+const selectOffers = (state: Pick<TState, NameSpace.Offers>) => state[NameSpace.Offers].offers;
 
-const selectIsOffersLoading = (state: TState) => state[NameSpace.Offers].isOffersLoading;
+const selectIsOffersLoading = (state: Pick<TState, NameSpace.Offers>) => state[NameSpace.Offers].isOffersLoading;
 
 const selectOffersMemo = createSelector(
   [selectCity, selectSorting, selectOffers],
   (city, activeSorting, offers) => sorting[activeSorting](getOffersByCity(offers, city))
 );
 
-const selectIsEmptyOffers = (state: TState) => !state[NameSpace.Offers].offers.length;
+const selectIsEmptyOffers = (state: Pick<TState, NameSpace.Offers>) => !state[NameSpace.Offers].offers.length;
 
 export { selectIsOffersLoading, selectOffersMemo, selectIsEmptyOffers, selectOffers };
